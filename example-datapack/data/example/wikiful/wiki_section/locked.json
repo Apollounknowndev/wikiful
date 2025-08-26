@@ -1,0 +1,17 @@
+{
+  "trigger": {
+    "type": "wikiful:inventory_changed",
+    "items": [
+      {
+        "items": "minecraft:dirt"
+      }
+    ]
+  },
+  "parent": "example:clouds",
+  "visibility": "locked_contents",
+  "title": "A Locked Section (Hint: Obtain Dirt)",
+  "body": [
+    "This is a locked section, only obtainable via triggering an event. Here, that is obtaining dirt.",
+    "There is an invisible section which you can unlock by hitting a block of stone."
+  ]
+}

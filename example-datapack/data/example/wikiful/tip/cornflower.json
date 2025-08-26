@@ -1,0 +1,35 @@
+{
+  "trigger": {
+    "type": "wikiful:any_of",
+    "triggers": [
+      {
+        "type": "wikiful:hit_block",
+        "blocks": "minecraft:cornflower"
+      },
+      {
+        "type": "wikiful:inventory_changed",
+        "items": [
+          {
+            "items": "minecraft:cornflower"
+          }
+        ]
+      }
+    ]
+  },
+  "sprite": "wikiful:tip/console",
+  "body": [
+    {
+      "text": "Cornflower",
+      "color": "#788dff"
+    },
+    2,
+    "A small blue flower that can be crafted into blue dye.",
+    {
+      "type": "wikiful:item",
+      "item": {
+        "id": "minecraft:cornflower"
+      }
+    }
+  ]
+}
+

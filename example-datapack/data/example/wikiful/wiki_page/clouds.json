@@ -1,0 +1,26 @@
+{
+  "type": "wikiful:base",
+  "title": "Clouds",
+  "opener": [
+    "Clouds float in the Overworld skies at y192 to y196.",
+    {
+      "type": "wikiful:sprite",
+      "sprite": "minecraft:icon/ping_5",
+      "texture_width": 10,
+      "texture_height": 8,
+      "scale": 0.2
+    },
+    {
+      "text": "That isn't a cloud texture, but it's fine.",
+      "italic": true
+    }
+  ],
+  "sections": [
+    {
+      "title": "A Built-in Section",
+      "body": [
+        "This is a section that is built into the wiki page."
+      ]
+    }
+  ]
+}

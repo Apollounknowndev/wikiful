@@ -1,0 +1,22 @@
+{
+  "trigger": {
+    "type": "wikiful:hit_block",
+    "blocks": "stone"
+  },
+  "parent": "example:clouds",
+  "visibility": "invisible",
+  "title": "Congratulations! You found the secret!",
+  "body": [
+    "Here is your reward: A diamond. You can't actually obtain it, but you can sure look at it. It's just like an NFT if you think about it.",
+    {
+      "type": "wikiful:item",
+      "item": {
+        "id": "diamond",
+        "components": {
+          "enchantment_glint_override": true
+        }
+      },
+      "show_decorations": false
+    }
+  ]
+}
