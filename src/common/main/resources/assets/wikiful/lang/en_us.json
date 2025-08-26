@@ -1,0 +1,29 @@
+{
+  "wikiful.section_locked": "You have not unlocked this section of the page yet.",
+  "wikiful.unknown": "???",
+  "gui.your_progress": "Your Progress...",
+  "menu.your_progress.title": "Your Progress",
+  "gui.wiki": "Wiki...",
+  "menu.wiki.title": "Wiki",
+
+  "command.wikiful.unlocked_single.page": "Unlocked page '%s' for player",
+  "command.wikiful.unlocked_all.page": "Unlocked all pages for player",
+  "command.wikiful.already_unlocked.page": "Page '%s' is already unlocked for player",
+  "command.wikiful.locked_single.page": "Locked page '%s' for player",
+  "command.wikiful.locked_all.page": "Locked all pages for player",
+  "command.wikiful.already_locked.page": "Page '%s' is already locked for player",
+
+  "command.wikiful.unlocked_single.section": "Unlocked section '%s' for player",
+  "command.wikiful.unlocked_all.section": "Unlocked all sections for player",
+  "command.wikiful.already_unlocked.section": "Section '%s' is already unlocked for player",
+  "command.wikiful.locked_single.section": "Locked section '%s' for player",
+  "command.wikiful.locked_all.section": "Locked all sections for player",
+  "command.wikiful.already_locked.section": "Section '%s' is already locked for player",
+
+  "command.wikiful.unlocked_single.tip": "Unlocked tip '%s' for player",
+  "command.wikiful.unlocked_all.tip": "Unlocked all tips for player",
+  "command.wikiful.already_unlocked.tip": "Tip '%s' is already unlocked for player",
+  "command.wikiful.locked_single.tip": "Locked tip '%s' for player",
+  "command.wikiful.locked_all.tip": "Locked all tips for player",
+  "command.wikiful.already_locked.tip": "Tip '%s' is already locked for player"
+}
