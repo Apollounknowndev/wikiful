@@ -1,11 +1,9 @@
 package dev.worldgen.wikiful.impl.attachment;
 
-import dev.worldgen.wikiful.impl.Wikiful;
+import dev.worldgen.wikiful.impl.WikifulEntrypoint;
 import dev.worldgen.wikiful.impl.event.UnlockedInfo;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.attachment.AttachmentType;
 
 import java.util.List;
 
@@ -15,11 +13,9 @@ public interface Attachments {
     AttachmentType<List<ResourceLocation>> UNLOCKED_TIPS = createAttachment("unlocked_tips");
 
     static AttachmentType<List<ResourceLocation>> createAttachment(String name) {
-        return AttachmentRegistry.create(Wikiful.id(name), builder -> builder
-            .persistent(UnlockedInfo.CODEC.codec())
-            .initializer(List::of)
-            .syncWith(UnlockedInfo.STREAM_CODEC, AttachmentSyncPredicate.targetOnly())
-        );
+        var attachment = AttachmentType.<List<ResourceLocation>>builder(() -> List.of()).serialize(UnlockedInfo.CODEC).sync(new UnlockedSyncHandler()).copyOnDeath().build();
+        WikifulEntrypoint.ATTACHMENT_TYPES.put(name, attachment);
+        return attachment;
     }
 
     static void init() {

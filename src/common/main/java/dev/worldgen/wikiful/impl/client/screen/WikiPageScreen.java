@@ -1,7 +1,6 @@
 package dev.worldgen.wikiful.impl.client.screen;
 
 import dev.worldgen.wikiful.api.wiki.WikiPage;
-import dev.worldgen.wikiful.impl.Wikiful;
 import dev.worldgen.wikiful.impl.client.screen.element.BodyWidget;
 import dev.worldgen.wikiful.impl.client.screen.element.PageHeaderWidget;
 import dev.worldgen.wikiful.impl.client.screen.element.SectionHeaderWidget;

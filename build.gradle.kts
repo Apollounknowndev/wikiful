@@ -18,7 +18,7 @@ repositories {
 }
 
 group = "dev.worldgen.wikiful"
-version = "1.0.0"
+version = "0.1.0"
 
 cloche {
     mappings {
@@ -30,7 +30,7 @@ cloche {
         name = "Wikiful"
         description = "In-game wiki library mod."
         license = "MIT"
-        //icon = "assets/wikiful/icon.png"
+        icon = "pack.png"
 
         author("Apollo")
     }

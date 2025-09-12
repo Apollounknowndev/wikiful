@@ -2,6 +2,7 @@ package dev.worldgen.wikiful.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import dev.worldgen.wikiful.api.registry.WikifulRegistryKeys;
 import dev.worldgen.wikiful.impl.client.screen.WikiPageScreen;
 import dev.worldgen.wikiful.impl.client.screen.WikiSelectScreen;
 import dev.worldgen.wikiful.impl.client.screen.YourProgressSubScreen;
@@ -39,7 +40,10 @@ public abstract class PauseScreenMixin extends Screen {
         )
     )
     private <T extends LayoutElement> T addYourProgressButton(GridLayout.RowHelper helper, T element, Operation<T> operation) {
-        return operation.call(helper, openScreenButton(YOUR_PROGRESS, () -> new YourProgressSubScreen(this)));
+        if (this.minecraft.level != null && this.minecraft.level.registryAccess().lookupOrThrow(WikifulRegistryKeys.WIKI_PAGE).size() > 0) {
+            return operation.call(helper, openScreenButton(YOUR_PROGRESS, () -> new YourProgressSubScreen(this)));
+        }
+        return operation.call(helper, element);
     }
 
 
@@ -52,6 +56,9 @@ public abstract class PauseScreenMixin extends Screen {
         )
     )
     private <T extends LayoutElement> T addWikiButton(GridLayout.RowHelper helper, T element, Operation<T> operation) {
-        return operation.call(helper, openScreenButton(WIKI, () -> new WikiSelectScreen(this)));
+        if (this.minecraft.level != null && this.minecraft.level.registryAccess().lookupOrThrow(WikifulRegistryKeys.WIKI_PAGE).size() > 0) {
+            return operation.call(helper, openScreenButton(WIKI, () -> new WikiSelectScreen(this)));
+        }
+        return operation.call(helper, element);
     }
 }
