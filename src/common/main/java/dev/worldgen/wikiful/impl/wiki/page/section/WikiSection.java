@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.worldgen.wikiful.api.event.EventTrigger;
-import dev.worldgen.wikiful.api.registry.WikifulRegistryKeys;
+import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.api.wiki.WikiPage;
 import dev.worldgen.wikiful.impl.event.TriggerHolder;
 import dev.worldgen.wikiful.impl.event.UnlockedSections;
@@ -22,7 +22,7 @@ import java.util.Optional;
 
 public record WikiSection(Optional<Holder<WikiPage>> parent, Optional<EventTrigger> trigger, Visibility visibility, Component title, List<Body> body) implements TriggerHolder {
     private static final Codec<WikiSection> CODEC = RecordCodecBuilder.<WikiSection>create(instance -> instance.group(
-        RegistryFixedCodec.create(WikifulRegistryKeys.WIKI_PAGE).optionalFieldOf("parent").forGetter(WikiSection::parent),
+        RegistryFixedCodec.create(WikifulRegistries.PAGE).optionalFieldOf("parent").forGetter(WikiSection::parent),
         EventTrigger.CODEC.optionalFieldOf("trigger").forGetter(WikiSection::trigger),
         Visibility.CODEC.fieldOf("visibility").orElse(Visibility.VISIBLE).forGetter(WikiSection::visibility),
         ComponentSerialization.CODEC.fieldOf("title").forGetter(WikiSection::title),

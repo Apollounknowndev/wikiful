@@ -1,6 +1,6 @@
 package dev.worldgen.wikiful.impl;
 
-import dev.worldgen.wikiful.api.registry.WikifulRegistryKeys;
+import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.impl.duck.TipToastDuck;
 import dev.worldgen.wikiful.impl.network.DisplayTipS2C;
 import net.fabricmc.api.ClientModInitializer;
@@ -11,7 +11,7 @@ public class WikifulClientEntrypoint implements ClientModInitializer {
     public void onInitializeClient() {
         WikifulClient.init();
         ClientPlayNetworking.registerGlobalReceiver(DisplayTipS2C.TYPE, (packet, context) -> {
-            var tips = context.player().registryAccess().lookup(WikifulRegistryKeys.TIP);
+            var tips = context.player().registryAccess().lookup(WikifulRegistries.TIP);
             if (tips.isEmpty()) return;
 
             var tip = tips.get().get(packet.id());

@@ -18,11 +18,12 @@ repositories {
 }
 
 group = "dev.worldgen.wikiful"
-version = "0.1.0"
+version = "0.2.0"
 
 cloche {
     mappings {
         official()
+        parchment("2025.07.20@zip")
     }
 
     metadata {

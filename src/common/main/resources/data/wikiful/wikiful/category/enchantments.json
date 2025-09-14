@@ -1,0 +1,11 @@
+{
+  "title": {
+    "translate": "category.wikiful.enchantments"
+  },
+  "external_title": {
+    "translate": "category.wikiful.enchantments_external"
+  },
+  "pages": "#wikiful:enchantments",
+  "categories": "#wikiful:enchantments",
+  "show_if_empty": false
+}

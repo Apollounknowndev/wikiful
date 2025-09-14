@@ -1,0 +1,11 @@
+{
+  "title": {
+    "translate": "category.wikiful.mobs"
+  },
+  "external_title": {
+    "translate": "category.wikiful.mobs_external"
+  },
+  "pages": "#wikiful:mobs",
+  "categories": "#wikiful:mobs",
+  "show_if_empty": false
+}

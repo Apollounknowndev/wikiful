@@ -5,9 +5,16 @@ import dev.worldgen.wikiful.impl.registry.WikifulEventTriggerTypes;
 import dev.worldgen.wikiful.impl.registry.WikifulLootParamSets;
 import dev.worldgen.wikiful.impl.registry.WikifulBodyTypes;
 import dev.worldgen.wikiful.impl.registry.WikifulWikiPageTypes;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public class Wikiful {
     public static final String MOD_ID = "wikiful";
@@ -23,5 +30,21 @@ public class Wikiful {
 
     public static ResourceLocation id(String name) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+    }
+
+    public static <T> List<Holder.Reference<T>> getReferences(RegistryAccess registries, ResourceKey<Registry<T>> key) {
+        return registries.lookupOrThrow(key).listElements().toList();
+    }
+
+    public static <T> List<Holder<T>> getHolders(RegistryAccess registries, ResourceKey<Registry<T>> key) {
+        return registries.lookupOrThrow(key).listElements().map(reference -> (Holder<T>) reference).toList();
+    }
+
+    public static <T> List<T> getValues(RegistryAccess registries, ResourceKey<Registry<T>> key) {
+        return registries.lookupOrThrow(key).stream().toList();
+    }
+
+    public static <T> List<Holder<T>> filterHolders(RegistryAccess registries, ResourceKey<Registry<T>> key, Predicate<Holder.Reference<T>> filter) {
+        return registries.lookupOrThrow(key).listElements().filter(filter::test).map(holder -> (Holder<T>) holder).toList();
     }
 }

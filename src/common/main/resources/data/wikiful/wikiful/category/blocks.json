@@ -1,0 +1,11 @@
+{
+  "title": {
+    "translate": "category.wikiful.blocks"
+  },
+  "external_title": {
+    "translate": "category.wikiful.blocks_external"
+  },
+  "pages": "#wikiful:blocks",
+  "categories": "#wikiful:blocks",
+  "show_if_empty": false
+}

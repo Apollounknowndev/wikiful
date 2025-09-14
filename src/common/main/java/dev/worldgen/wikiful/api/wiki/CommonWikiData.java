@@ -14,10 +14,11 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.List;
 import java.util.Optional;
 
-public record CommonWikiData(Optional<EventTrigger> trigger, Component title, Sprites sprites, List<Body> opener, List<WikiSection> sections) {
+public record CommonWikiData(Optional<EventTrigger> trigger, Component title, boolean showOnMain, Sprites sprites, List<Body> opener, List<WikiSection> sections) {
     public static final MapCodec<CommonWikiData> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
         EventTrigger.CODEC.optionalFieldOf("trigger").forGetter(CommonWikiData::trigger),
         ComponentSerialization.CODEC.fieldOf("title").forGetter(CommonWikiData::title),
+        Codec.BOOL.fieldOf("show_on_main_page").orElse(true).forGetter(CommonWikiData::showOnMain),
         Sprites.CODEC.fieldOf("sprites").orElse(Sprites.DEFAULT).forGetter(CommonWikiData::sprites),
         Body.LIST_CODEC.fieldOf("opener").forGetter(CommonWikiData::opener),
         WikiSection.PAGE_CODEC.listOf().optionalFieldOf("sections", List.of()).forGetter(CommonWikiData::sections)

@@ -1,0 +1,11 @@
+{
+  "title": {
+    "translate": "category.wikiful.biomes"
+  },
+  "external_title": {
+    "translate": "category.wikiful.biomes_external"
+  },
+  "pages": "#wikiful:biomes",
+  "categories": "#wikiful:biomes",
+  "show_if_empty": false
+}

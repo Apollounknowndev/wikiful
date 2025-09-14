@@ -25,5 +25,20 @@
   "command.wikiful.already_unlocked.tip": "Tip '%s' is already unlocked for player",
   "command.wikiful.locked_single.tip": "Locked tip '%s' for player",
   "command.wikiful.locked_all.tip": "Locked all tips for player",
-  "command.wikiful.already_locked.tip": "Tip '%s' is already locked for player"
+  "command.wikiful.already_locked.tip": "Tip '%s' is already locked for player",
+
+  "category.wikiful.biomes": "Biomes",
+  "category.wikiful.biomes_external": "Biomes...",
+  "category.wikiful.blocks": "Blocks",
+  "category.wikiful.blocks_external": "Blocks...",
+  "category.wikiful.enchantments": "Enchantments",
+  "category.wikiful.enchantments_external": "Enchantments...",
+  "category.wikiful.items": "Items",
+  "category.wikiful.items_external": "Items...",
+  "category.wikiful.mobs": "Mobs",
+  "category.wikiful.mobs_external": "Mobs...",
+  "category.wikiful.status_effects": "Status Effects",
+  "category.wikiful.status_effects_external": "Status Effects...",
+  "category.wikiful.structures": "Structures",
+  "category.wikiful.structures_external": "Structures..."
 }

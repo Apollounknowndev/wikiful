@@ -1,0 +1,11 @@
+{
+  "title": {
+    "translate": "category.wikiful.items"
+  },
+  "external_title": {
+    "translate": "category.wikiful.items_external"
+  },
+  "pages": "#wikiful:items",
+  "categories": "#wikiful:items",
+  "show_if_empty": false
+}

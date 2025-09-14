@@ -1,0 +1,11 @@
+{
+  "title": {
+    "translate": "category.wikiful.status_effects"
+  },
+  "external_title": {
+    "translate": "category.wikiful.status_effects_external"
+  },
+  "pages": "#wikiful:status_effects",
+  "categories": "#wikiful:status_effects",
+  "show_if_empty": false
+}

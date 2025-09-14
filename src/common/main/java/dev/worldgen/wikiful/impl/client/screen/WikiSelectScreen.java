@@ -1,9 +1,13 @@
 package dev.worldgen.wikiful.impl.client.screen;
 
-import dev.worldgen.wikiful.api.registry.WikifulRegistryKeys;
+import dev.worldgen.wikiful.api.registry.WikifulRegistries;
+import dev.worldgen.wikiful.api.wiki.CommonWikiData;
 import dev.worldgen.wikiful.api.wiki.WikiPage;
+import dev.worldgen.wikiful.impl.Wikiful;
 import dev.worldgen.wikiful.impl.event.UnlockedPages;
+import dev.worldgen.wikiful.impl.wiki.category.WikiCategory;
 import dev.worldgen.wikiful.impl.wiki.page.section.WikiSection;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -11,28 +15,38 @@ import net.minecraft.client.gui.components.ScrollableLayout;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 
 public class WikiSelectScreen extends Screen {
+    public static final Component TITLE = Component.translatable("menu.wiki.title");
     private static final ResourceLocation INWORLD_MENU_LIST_BACKGROUND = ResourceLocation.withDefaultNamespace("textures/gui/inworld_menu_list_background.png");
-    private static final Component TITLE = Component.translatable("menu.wiki.title");
+    private static final ResourceKey<WikiPage> INLINED_PAGE = ResourceKey.create(WikifulRegistries.PAGE, Wikiful.id("inlined"));
     private final Screen parent;
+    private final RegistryAccess registries;
 
     protected HeaderAndFooterLayout layout;
     protected EditBox searchBox;
     private ScrollableLayout pageButtons;
-    private List<Holder.Reference<WikiPage>> pages;
-    private List<Holder.Reference<WikiSection>> sections;
+    private final List<Holder<WikiPage>> pages;
+    private final List<Holder.Reference<WikiCategory>> categories;
+    private final List<Holder.Reference<WikiSection>> sections;
 
-    public WikiSelectScreen(Screen parent) {
-        super(TITLE);
+    public WikiSelectScreen(Component title, Minecraft minecraft, Screen parent, List<Holder<WikiPage>> pages, List<Holder.Reference<WikiCategory>> categories) {
+        super(title);
+        this.registries = minecraft.level.registryAccess();
         this.parent = parent;
+        this.pages = pages;
+        this.categories = categories;
+        this.sections = Wikiful.getReferences(this.registries, WikifulRegistries.SECTION);
     }
 
     @Override
@@ -58,27 +72,38 @@ public class WikiSelectScreen extends Screen {
         this.layout.arrangeElements();
     }
 
-    private void setupPages(String string) {
+    private void setupPages(String search) {
         LinearLayout linearLayout = LinearLayout.vertical().spacing(3);
         linearLayout.defaultCellSetting().alignHorizontallyCenter();
-        if (this.minecraft.level != null && this.minecraft.player != null) {
-            if (this.pages == null) {
-                this.pages = this.minecraft.level.registryAccess().lookupOrThrow(WikifulRegistryKeys.WIKI_PAGE).listElements().toList();
-                this.sections = this.minecraft.level.registryAccess().lookupOrThrow(WikifulRegistryKeys.WIKI_SECTION).listElements().toList();
-            }
-            for (Holder.Reference<WikiPage> page : this.pages) {
-                if (page.value().commonData().trigger().isPresent() && !UnlockedPages.INSTANCE.hasUnlocked(this.minecraft.player, page.key().location())) continue;
 
-                String title = page.value().commonData().title().getString();
-                if (string.isEmpty() || title.toLowerCase().contains(string)) {
-                    linearLayout.addChild(Button.builder(page.value().commonData().title(), button -> {
-                        this.minecraft.setScreen(new WikiPageScreen(this, page.value(), collectSections(page)));
-                    }).width(200).build());
-                }
+        LocalPlayer player = this.minecraft.player;
+
+        for (Holder.Reference<WikiCategory> holder : this.categories) {
+            WikiCategory category = holder.value();
+            if (category.visible(player, search)) {
+                linearLayout.addChild(button(category.externalTitle(), new WikiSelectScreen(category.title(), minecraft, this, category.pages().stream().toList(), List.of())));
             }
         }
+        for (Holder<WikiPage> page : this.pages) {
+            CommonWikiData data = page.value().commonData();
+            if (data.trigger().isPresent() && !UnlockedPages.INSTANCE.hasUnlocked(player, getId(page))) continue;
+
+            String title = data.title().getString();
+            if (search.isEmpty() || title.toLowerCase().contains(search)) {
+                linearLayout.addChild(button(data.title(), new WikiPageScreen(this, page.value(), collectSections(page))));
+            }
+        }
+
         this.pageButtons = new ScrollableLayout(this.minecraft, linearLayout, this.layout.getContentHeight());
         this.pageButtons.setMaxHeight(this.layout.getContentHeight() - 19);
+    }
+
+    public static ResourceLocation getId(Holder<WikiPage> page) {
+        return page.unwrapKey().orElse(INLINED_PAGE).location();
+    }
+
+    private Button button(Component title, Screen screen) {
+        return Button.builder(title, button -> this.minecraft.setScreen(screen)).width(200).build();
     }
 
     private List<Holder.Reference<WikiSection>> collectSections(Holder<WikiPage> page) {

@@ -2,12 +2,13 @@ package dev.worldgen.wikiful.impl;
 
 import com.mojang.serialization.MapCodec;
 import dev.worldgen.wikiful.api.event.EventTriggerType;
-import dev.worldgen.wikiful.api.registry.WikifulRegistryKeys;
+import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.api.wiki.WikiPage;
 import dev.worldgen.wikiful.impl.attachment.Attachments;
 import dev.worldgen.wikiful.impl.command.WikifulCommand;
 import dev.worldgen.wikiful.impl.network.DisplayTipS2C;
 import dev.worldgen.wikiful.impl.wiki.body.Body;
+import dev.worldgen.wikiful.impl.wiki.category.WikiCategory;
 import dev.worldgen.wikiful.impl.wiki.page.section.WikiSection;
 import dev.worldgen.wikiful.impl.wiki.tip.Tip;
 import net.neoforged.bus.api.IEventBus;
@@ -28,9 +29,9 @@ import java.util.Map;
 
 @Mod(Wikiful.MOD_ID)
 public class WikifulEntrypoint {
-    public static final DeferredRegister<EventTriggerType<?>> DEFERRED_TRIGGER_TYPES = DeferredRegister.create(WikifulRegistryKeys.EVENT_TRIGGER_TYPE, Wikiful.MOD_ID);
-    public static final DeferredRegister<MapCodec<? extends Body>> DEFERRED_BODY_TYPES = DeferredRegister.create(WikifulRegistryKeys.BODY_TYPE, Wikiful.MOD_ID);
-    public static final DeferredRegister<MapCodec<? extends WikiPage>> DEFERRED_WIKI_PAGE_TYPES = DeferredRegister.create(WikifulRegistryKeys.WIKI_PAGE_TYPE, Wikiful.MOD_ID);
+    public static final DeferredRegister<EventTriggerType<?>> DEFERRED_TRIGGER_TYPES = DeferredRegister.create(WikifulRegistries.EVENT_TRIGGER_TYPE, Wikiful.MOD_ID);
+    public static final DeferredRegister<MapCodec<? extends Body>> DEFERRED_BODY_TYPES = DeferredRegister.create(WikifulRegistries.BODY_TYPE, Wikiful.MOD_ID);
+    public static final DeferredRegister<MapCodec<? extends WikiPage>> DEFERRED_WIKI_PAGE_TYPES = DeferredRegister.create(WikifulRegistries.WIKI_PAGE_TYPE, Wikiful.MOD_ID);
 
     public static final Map<String, EventTriggerType<?>> TRIGGER_TYPES = new HashMap<>();
     public static final Map<String, MapCodec<? extends Body>> BODY_TYPES = new HashMap<>();
@@ -61,9 +62,10 @@ public class WikifulEntrypoint {
     }
 
     public void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(WikifulRegistryKeys.TIP, Tip.CODEC, Tip.CODEC);
-        event.dataPackRegistry(WikifulRegistryKeys.WIKI_PAGE, WikiPage.CODEC, WikiPage.CODEC);
-        event.dataPackRegistry(WikifulRegistryKeys.WIKI_SECTION, WikiSection.STANDALONE_CODEC, WikiSection.STANDALONE_CODEC);
+        event.dataPackRegistry(WikifulRegistries.TIP, Tip.CODEC, Tip.CODEC);
+        event.dataPackRegistry(WikifulRegistries.PAGE, WikiPage.CODEC, WikiPage.CODEC);
+        event.dataPackRegistry(WikifulRegistries.SECTION, WikiSection.STANDALONE_CODEC, WikiSection.STANDALONE_CODEC);
+        event.dataPackRegistry(WikifulRegistries.CATEGORY, WikiCategory.CODEC, WikiCategory.CODEC);
     }
 
     public void registerAttachments(RegisterEvent event) {

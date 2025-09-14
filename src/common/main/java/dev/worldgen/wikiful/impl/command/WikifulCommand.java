@@ -2,13 +2,11 @@ package dev.worldgen.wikiful.impl.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import dev.worldgen.wikiful.api.registry.WikifulRegistryKeys;
+import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.impl.event.UnlockedInfo;
 import dev.worldgen.wikiful.impl.event.UnlockedPages;
 import dev.worldgen.wikiful.impl.event.UnlockedSections;
 import dev.worldgen.wikiful.impl.event.UnlockedTips;
-import dev.worldgen.wikiful.impl.wiki.page.section.WikiSection;
-import dev.worldgen.wikiful.impl.wiki.tip.Tip;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -31,9 +29,9 @@ public class WikifulCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext buildContext) {
         dispatcher.register(
             literal("wikiful").requires(Commands.hasPermission(2))
-                .then(createSubcommand(buildContext, "page", WikifulRegistryKeys.WIKI_PAGE, UnlockedPages.INSTANCE))
-                .then(createSubcommand(buildContext, "section", WikifulRegistryKeys.WIKI_SECTION, UnlockedSections.INSTANCE))
-                .then(createSubcommand(buildContext, "tip", WikifulRegistryKeys.TIP, UnlockedTips.INSTANCE))
+                .then(createSubcommand(buildContext, "page", WikifulRegistries.PAGE, UnlockedPages.INSTANCE))
+                .then(createSubcommand(buildContext, "section", WikifulRegistries.SECTION, UnlockedSections.INSTANCE))
+                .then(createSubcommand(buildContext, "tip", WikifulRegistries.TIP, UnlockedTips.INSTANCE))
         );
     }
 

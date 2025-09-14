@@ -1,7 +1,7 @@
 package dev.worldgen.wikiful.api.event;
 
 import com.mojang.serialization.MapCodec;
-import dev.worldgen.wikiful.api.registry.WikifulRegistryKeys;
+import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.impl.event.TriggerHolder;
 import dev.worldgen.wikiful.impl.event.UnlockedPages;
 import dev.worldgen.wikiful.impl.event.UnlockedSections;
@@ -50,9 +50,9 @@ public class EventTriggerType<T extends EventTrigger> {
             EventTrigger trigger = listener.getValue();
             ResourceKey<TriggerHolder> key = listener.getKey().key();
             ResourceLocation name = key.location();
-            if (key.isFor(WikifulRegistryKeys.TIP) && UnlockedTips.INSTANCE.hasUnlocked(player, name)) continue;
-            if (key.isFor(WikifulRegistryKeys.WIKI_PAGE) && UnlockedPages.INSTANCE.hasUnlocked(player, name)) continue;
-            if (key.isFor(WikifulRegistryKeys.WIKI_SECTION) && UnlockedSections.INSTANCE.hasUnlocked(player, name)) continue;
+            if (key.isFor(WikifulRegistries.TIP) && UnlockedTips.INSTANCE.hasUnlocked(player, name)) continue;
+            if (key.isFor(WikifulRegistries.PAGE) && UnlockedPages.INSTANCE.hasUnlocked(player, name)) continue;
+            if (key.isFor(WikifulRegistries.SECTION) && UnlockedSections.INSTANCE.hasUnlocked(player, name)) continue;
 
             if (matcher.test(trigger)) {
                 listener.getKey().value().onTriggered(player, name);

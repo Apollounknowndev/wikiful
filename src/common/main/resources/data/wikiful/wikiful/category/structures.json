@@ -1,0 +1,11 @@
+{
+  "title": {
+    "translate": "category.wikiful.structures"
+  },
+  "external_title": {
+    "translate": "category.wikiful.structures_external"
+  },
+  "pages": "#wikiful:structures",
+  "categories": "#wikiful:structures",
+  "show_if_empty": false
+}

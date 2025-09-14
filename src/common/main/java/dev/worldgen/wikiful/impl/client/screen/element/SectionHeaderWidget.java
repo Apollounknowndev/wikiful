@@ -20,13 +20,14 @@ import java.util.Optional;
 public class SectionHeaderWidget extends AbstractWidget {
     public static final Component UNKNOWN_TITLE = Component.translatable("wikiful.unknown").withStyle(ChatFormatting.GRAY);
     public static final ResourceLocation LOCKED_SPRITE = Wikiful.id("page/lock");
+    private static final float SCALE = 1.5f;
     private final Minecraft minecraft;
     private final Component title;
     private final Visibility visibility;
     private final int color;
 
     public SectionHeaderWidget(Minecraft minecraft, WikiSection section, Optional<ResourceKey<WikiSection>> key, int width) {
-        super(0, 0, width, 30, section.title());
+        super(0, 0, width, (int) (12 + (SCALE * 9)), section.title());
         this.minecraft = minecraft;
         this.visibility = getVisibility(section, key, minecraft);
 
@@ -69,7 +70,7 @@ public class SectionHeaderWidget extends AbstractWidget {
     protected void renderWidget(GuiGraphics graphics, int i, int i1, float v) {
         graphics.pose().pushMatrix();
         graphics.pose().translate(this.getX(), this.getY() + 6);
-        graphics.pose().scale(2, 2);
+        graphics.pose().scale(SCALE, SCALE);
         int textX = 0;
         if (this.visibility != Visibility.VISIBLE) {
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, LOCKED_SPRITE, 0, 0, 8, 8);
@@ -78,7 +79,7 @@ public class SectionHeaderWidget extends AbstractWidget {
         graphics.drawWordWrap(minecraft.font, title, textX, 0, width, -1);
         graphics.pose().popMatrix();
 
-        int lineY = this.getY() + 24;
+        int lineY = this.getY() + this.getHeight() - 6;
         graphics.fill(this.getX(), lineY, this.getX() + width, lineY + 2, this.color);
     }
 
