@@ -1,8 +1,7 @@
 package dev.worldgen.wikiful.mixin.trigger;
 
-import dev.worldgen.wikiful.impl.event.triggers.HitBlock;
+import dev.worldgen.wikiful.impl.event.triggers.BlockHit;
 import dev.worldgen.wikiful.impl.event.triggers.LocationChanged;
-import dev.worldgen.wikiful.impl.registry.WikifulEventTriggerTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -28,7 +27,7 @@ public abstract class EnchantmentHelperMixin {
     )
     private static void fireHitBlock(ServerLevel level, ItemStack stack, LivingEntity entity, Entity target, EquipmentSlot slot, Vec3 vec3, BlockState state, Consumer<Item> consumer, CallbackInfo ci) {
         if (entity instanceof ServerPlayer player) {
-            HitBlock.trigger(level, player, stack, vec3, state);
+            BlockHit.trigger(level, player, stack, vec3, state);
         }
     }
 

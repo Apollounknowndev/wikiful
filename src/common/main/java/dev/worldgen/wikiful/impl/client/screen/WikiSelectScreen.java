@@ -15,7 +15,6 @@ import net.minecraft.client.gui.components.ScrollableLayout;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -23,6 +22,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.List;
 
@@ -76,7 +76,7 @@ public class WikiSelectScreen extends Screen {
         LinearLayout linearLayout = LinearLayout.vertical().spacing(3);
         linearLayout.defaultCellSetting().alignHorizontallyCenter();
 
-        LocalPlayer player = this.minecraft.player;
+        Player player = this.minecraft.player;
 
         for (Holder.Reference<WikiCategory> holder : this.categories) {
             WikiCategory category = holder.value();

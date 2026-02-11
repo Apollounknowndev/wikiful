@@ -5,6 +5,7 @@
     "trigger.EnchantmentHelperMixin",
     "trigger.InventoryChangeTriggerMixin",
     "trigger.ItemStackMixin",
+    "trigger.ServerPlayerMixin",
     "LootContextParamSetsAccessor"
   ],
   "client": [

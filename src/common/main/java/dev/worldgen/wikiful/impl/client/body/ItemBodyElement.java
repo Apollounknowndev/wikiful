@@ -6,8 +6,8 @@ import dev.worldgen.wikiful.impl.wiki.body.ItemBody;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import static dev.worldgen.wikiful.impl.client.TipToast.SLOT_SPRITE;
@@ -35,7 +35,7 @@ public record ItemBodyElement(ItemBody body) implements BodyElement {
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT_SPRITE, x - 1, y - 1, 18, 18);
         }
 
-        LocalPlayer player = Minecraft.getInstance().player;
+        Player player = Minecraft.getInstance().player;
         if (player == null) {
             graphics.renderFakeItem(item, x, y, 0);
         } else {

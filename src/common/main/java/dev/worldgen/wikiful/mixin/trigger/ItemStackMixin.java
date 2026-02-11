@@ -1,6 +1,6 @@
 package dev.worldgen.wikiful.mixin.trigger;
 
-import dev.worldgen.wikiful.impl.event.triggers.DestroyBlock;
+import dev.worldgen.wikiful.impl.event.triggers.BlockBroken;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,9 +20,9 @@ public abstract class ItemStackMixin {
         method = "mineBlock",
         at = @At("HEAD")
     )
-    private void fireDestroyBlock(Level level, BlockState state, BlockPos pos, Player player, CallbackInfo ci) {
+    private void fireBlockBroken(Level level, BlockState state, BlockPos pos, Player player, CallbackInfo ci) {
         if (level instanceof ServerLevel serverLevel && player instanceof ServerPlayer serverPlayer) {
-            DestroyBlock.trigger(serverLevel, serverPlayer, ((ItemStack)(Object)this), Vec3.atCenterOf(pos), state);
+            BlockBroken.trigger(serverLevel, serverPlayer, ((ItemStack)(Object)this), Vec3.atCenterOf(pos), state);
         }
     }
 }

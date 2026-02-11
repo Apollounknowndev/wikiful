@@ -30,6 +30,7 @@ public class WikifulEntrypoint implements ModInitializer {
         PayloadTypeRegistry.playS2C().register(DisplayTipS2C.TYPE, DisplayTipS2C.CODEC);
 
         ServerLifecycleEvents.SERVER_STARTING.register(server -> WikifulEvents.onRegistryLoad(server.registryAccess()));
+        
         CommandRegistrationCallback.EVENT.register((dispatcher, buildContext, selection) -> WikifulCommand.register(dispatcher, buildContext));
     }
 

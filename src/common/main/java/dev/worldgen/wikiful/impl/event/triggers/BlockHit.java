@@ -24,16 +24,16 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Optional;
 
-public record DestroyBlock(Optional<LootItemCondition> condition, Optional<HolderSet<Block>> blocks, Optional<StatePropertiesPredicate> properties) implements EventTrigger {
-    public static final MapCodec<DestroyBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        EventTrigger.conditionCodec(WikifulLootParamSets.HIT_BLOCK).forGetter(DestroyBlock::condition),
-        RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(DestroyBlock::blocks),
-        StatePropertiesPredicate.CODEC.optionalFieldOf("properties").forGetter(DestroyBlock::properties)
-    ).apply(instance, DestroyBlock::new));
+public record BlockHit(Optional<LootItemCondition> condition, Optional<HolderSet<Block>> blocks, Optional<StatePropertiesPredicate> properties) implements EventTrigger {
+    public static final MapCodec<BlockHit> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        EventTrigger.conditionCodec(WikifulLootParamSets.BLOCK_INTERACTION).forGetter(BlockHit::condition),
+        RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(BlockHit::blocks),
+        StatePropertiesPredicate.CODEC.optionalFieldOf("properties").forGetter(BlockHit::properties)
+    ).apply(instance, BlockHit::new));
 
     public static void trigger(ServerLevel level, ServerPlayer player, ItemStack stack, Vec3 vec3, BlockState state) {
         LootContext context = context(level, player, stack, vec3, state);
-        WikifulEventTriggerTypes.DESTROY_BLOCK.onListeners(player, trigger -> trigger instanceof DestroyBlock hitBlock && hitBlock.matches(context, state));
+        WikifulEventTriggerTypes.BLOCK_HIT.onListeners(player, trigger -> trigger instanceof BlockHit blockHit && blockHit.matches(context, state));
     }
 
     private boolean matches(LootContext context, BlockState state) {
@@ -48,12 +48,12 @@ public record DestroyBlock(Optional<LootItemCondition> condition, Optional<Holde
             .withParameter(LootContextParams.ORIGIN, vec3)
             .withParameter(LootContextParams.TOOL, stack)
             .withParameter(LootContextParams.BLOCK_STATE, state)
-            .create(WikifulLootParamSets.HIT_BLOCK);
+            .create(WikifulLootParamSets.BLOCK_INTERACTION);
         return new LootContext.Builder(params).create(Optional.empty());
     }
 
     @Override
     public EventTriggerType<? extends EventTrigger> type() {
-        return WikifulEventTriggerTypes.DESTROY_BLOCK;
+        return WikifulEventTriggerTypes.BLOCK_HIT;
     }
 }

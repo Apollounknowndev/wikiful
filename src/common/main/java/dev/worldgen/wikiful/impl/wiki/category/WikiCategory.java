@@ -6,12 +6,12 @@ import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.api.wiki.WikiPage;
 import dev.worldgen.wikiful.impl.client.screen.WikiSelectScreen;
 import dev.worldgen.wikiful.impl.event.UnlockedPages;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.Optional;
 
@@ -28,7 +28,7 @@ public record WikiCategory(Component title, Component externalTitle, HolderSet<W
         this(title, externalTitle.orElse(title), pages, categories, showIfEmpty);
     }
 
-    public boolean visible(LocalPlayer player, String search) {
+    public boolean visible(Player player, String search) {
         if (showIfEmpty) return true;
         for (Holder<WikiPage> page : pages) {
             if (UnlockedPages.INSTANCE.hasUnlocked(player, WikiSelectScreen.getId(page)) && matchesSearch(page.value().commonData().title(), search)) {

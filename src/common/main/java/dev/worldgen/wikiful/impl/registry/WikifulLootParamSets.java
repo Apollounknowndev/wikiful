@@ -8,11 +8,15 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import java.util.function.UnaryOperator;
 
 public interface WikifulLootParamSets {
-    ContextKeySet HIT_BLOCK = register("hit_block", builder -> builder
+    ContextKeySet BLOCK_INTERACTION = register("block_interaction", builder -> builder
         .required(LootContextParams.THIS_ENTITY)
         .required(LootContextParams.ORIGIN)
-        .required(LootContextParams.TOOL)
+        .optional(LootContextParams.TOOL)
         .required(LootContextParams.BLOCK_STATE)
+    );
+    ContextKeySet PLAYER_ONLY = register("player_only", builder -> builder
+        .required(LootContextParams.THIS_ENTITY)
+        .required(LootContextParams.ORIGIN)
     );
 
     static ContextKeySet register(String name, UnaryOperator<ContextKeySet.Builder> builder) {

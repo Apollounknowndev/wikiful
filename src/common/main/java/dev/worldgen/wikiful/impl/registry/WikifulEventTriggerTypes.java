@@ -8,10 +8,11 @@ import net.msrandom.multiplatform.annotations.Expect;
 
 public interface WikifulEventTriggerTypes {
     EventTriggerType<AnyOf> ANY_OF = register("any_of", AnyOf.CODEC);
-    EventTriggerType<DestroyBlock> DESTROY_BLOCK = register("destroy_block", DestroyBlock.CODEC);
-    EventTriggerType<HitBlock> HIT_BLOCK = register("hit_block", HitBlock.CODEC);
+    EventTriggerType<BlockBroken> BLOCK_BROKEN = register("block_broken", BlockBroken.CODEC);
+    EventTriggerType<BlockHit> BLOCK_HIT = register("block_hit", BlockHit.CODEC);
     EventTriggerType<LocationChanged> LOCATION_CHANGED = register("location_changed", LocationChanged.CODEC);
     EventTriggerType<InventoryChanged> INVENTORY_CHANGED = register("inventory_changed", InventoryChanged.CODEC);
+    EventTriggerType<MenuOpened> MENU_OPENED = register("menu_opened", MenuOpened.CODEC);
 
     @Expect
     static <T extends EventTrigger> EventTriggerType<T> register(String name, MapCodec<T> codec);
