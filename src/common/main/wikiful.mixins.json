@@ -5,12 +5,9 @@
     "trigger.EnchantmentHelperMixin",
     "trigger.InventoryChangeTriggerMixin",
     "trigger.ItemStackMixin",
-    "trigger.ServerPlayerMixin",
-    "LootContextParamSetsAccessor"
+    "trigger.ServerPlayerMixin"
   ],
   "client": [
-    "client.PauseScreenMixin",
-    "client.ToastManagerMixin",
-    "client.ToastInstanceMixin"
+    "client.PauseScreenMixin"
   ]
 }

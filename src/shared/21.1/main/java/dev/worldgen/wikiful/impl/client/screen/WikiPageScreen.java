@@ -3,8 +3,8 @@ package dev.worldgen.wikiful.impl.client.screen;
 import dev.worldgen.wikiful.api.wiki.WikiPage;
 import dev.worldgen.wikiful.impl.client.screen.element.BodyWidget;
 import dev.worldgen.wikiful.impl.client.screen.element.PageHeaderWidget;
-import dev.worldgen.wikiful.impl.client.screen.element.SectionHeaderWidget;
 import dev.worldgen.wikiful.impl.client.screen.element.PageScrollableLayout;
+import dev.worldgen.wikiful.impl.client.screen.element.SectionHeaderWidget;
 import dev.worldgen.wikiful.impl.wiki.body.EmptyBody;
 import dev.worldgen.wikiful.impl.wiki.page.section.WikiSection;
 import dev.worldgen.wikiful.impl.wiki.page.section.WikiSection.Visibility;
@@ -13,7 +13,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceKey;
@@ -97,7 +96,7 @@ public class WikiPageScreen extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int f, int g, float tickDelta) {
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, page.commonData().sprites().background(), 4, 31, this.width - 8, this.height - 62);
+        guiGraphics.blitSprite(page.commonData().sprites().background(), 4, 31, this.width - 8, this.height - 62);
         super.render(guiGraphics, f, g, tickDelta);
     }
 }

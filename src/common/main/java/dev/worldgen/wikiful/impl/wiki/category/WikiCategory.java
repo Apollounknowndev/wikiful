@@ -4,18 +4,21 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.api.wiki.WikiPage;
-import dev.worldgen.wikiful.impl.client.screen.WikiSelectScreen;
+import dev.worldgen.wikiful.impl.Wikiful;
 import dev.worldgen.wikiful.impl.event.UnlockedPages;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.Optional;
 
 public record WikiCategory(Component title, Component externalTitle, HolderSet<WikiPage> pages, HolderSet<WikiCategory> categories, boolean showIfEmpty) {
+    private static final ResourceKey<WikiPage> INLINED_PAGE = ResourceKey.create(WikifulRegistries.PAGE, Wikiful.id("inlined"));
     public static final Codec<WikiCategory> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ComponentSerialization.CODEC.fieldOf("title").forGetter(WikiCategory::title),
         ComponentSerialization.CODEC.optionalFieldOf("external_title").forGetter(category -> Optional.of(category.externalTitle)),
@@ -31,7 +34,7 @@ public record WikiCategory(Component title, Component externalTitle, HolderSet<W
     public boolean visible(Player player, String search) {
         if (showIfEmpty) return true;
         for (Holder<WikiPage> page : pages) {
-            if (UnlockedPages.INSTANCE.hasUnlocked(player, WikiSelectScreen.getId(page)) && matchesSearch(page.value().commonData().title(), search)) {
+            if (UnlockedPages.INSTANCE.hasUnlocked(player, getId(page)) && matchesSearch(page.value().commonData().title(), search)) {
                 return true;
             }
         }
@@ -39,6 +42,10 @@ public record WikiCategory(Component title, Component externalTitle, HolderSet<W
             if (category.value().visible(player, search) && matchesSearch(category.value().title(), search)) return true;
         }
         return false;
+    }
+    
+    public static Identifier getId(Holder<WikiPage> page) {
+        return page.unwrapKey().orElse(INLINED_PAGE).identifier();
     }
 
     private static boolean matchesSearch(Component title, String search) {

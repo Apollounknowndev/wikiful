@@ -3,3 +3,12 @@ c	ad	net/minecraft/util/Util
 c	akq	net/minecraft/resources/ResourceKey
 	m	()Lakr;	a	identifier
 c	akr	net/minecraft/resources/Identifier
+c	bv	net/minecraft/advancements/criterion/EntityPredicate
+c	cg	net/minecraft/advancements/criterion/InventoryChangeTrigger
+c	cs	net/minecraft/advancements/criterion/ItemPredicate
+c	df	net/minecraft/advancements/criterion/LocationPredicate
+c	dh	net/minecraft/advancements/criterion/MinMaxBounds
+c	dh$a	net/minecraft/advancements/criterion/MinMaxBounds$Bounds
+c	dh$c	net/minecraft/advancements/criterion/MinMaxBounds$Doubles
+c	dh$d	net/minecraft/advancements/criterion/MinMaxBounds$Ints
+c	eb	net/minecraft/advancements/criterion/StatePropertiesPredicate

@@ -4,12 +4,12 @@ import dev.worldgen.wikiful.api.event.EventTriggerType;
 import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.impl.event.TriggerHolder;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.RegistryAccess;
 
 public class WikifulEvents {
     public static void onRegistryLoad(RegistryAccess registries) {
-        for (EventTriggerType<?> type : registries.lookupOrThrow(WikifulRegistries.EVENT_TRIGGER_TYPE)) {
+        for (EventTriggerType<?> type : Wikiful.registry(registries, WikifulRegistries.EVENT_TRIGGER_TYPE).stream().toList()) {
             type.clearListeners();
         }
 
@@ -18,7 +18,7 @@ public class WikifulEvents {
         addListeners(registries.lookupOrThrow(WikifulRegistries.PAGE));
     }
 
-    private static void addListeners(Registry<TriggerHolder> registry) {
+    private static void addListeners(RegistryLookup<TriggerHolder> registry) {
         for (Holder.Reference<TriggerHolder> holder : registry.listElements().toList()) {
             holder.value().getTrigger().ifPresent(trigger -> trigger.type().addListener(holder, trigger));
         }

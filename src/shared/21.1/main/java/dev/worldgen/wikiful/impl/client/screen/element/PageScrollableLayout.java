@@ -1,18 +1,15 @@
 package dev.worldgen.wikiful.impl.client.screen.element;
 
-import dev.worldgen.wikiful.impl.Wikiful;
+import dev.worldgen.wikiful.impl.client.screen.element.backport.WikifulContainerWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractContainerWidget;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.layouts.Layout;
 import net.minecraft.client.gui.layouts.LayoutElement;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.navigation.ScreenDirection;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -24,13 +21,13 @@ import java.util.function.Consumer;
 
 public class PageScrollableLayout implements Layout {
     final Layout content;
-    private final PageScrollableLayout.Container container;
+    private final Container container;
     private int minWidth;
     private int maxHeight;
 
     public PageScrollableLayout(Minecraft minecraft, Layout layout, int i) {
         this.content = layout;
-        this.container = new PageScrollableLayout.Container(minecraft, 0, i);
+        this.container = new Container(minecraft, 0, i);
     }
 
     public void setMinWidth(int i) {
@@ -88,7 +85,7 @@ public class PageScrollableLayout implements Layout {
         return this.container.getHeight();
     }
 
-    class Container extends AbstractContainerWidget {
+    class Container extends WikifulContainerWidget {
         private static final Identifier SCROLLER_SPRITE = Identifier.withDefaultNamespace("widget/scroller");
         private static final Identifier SCROLLER_BACKGROUND_SPRITE = Identifier.withDefaultNamespace("widget/scroller_background");
 
@@ -129,18 +126,13 @@ public class PageScrollableLayout implements Layout {
                 int i = minecraft.screen.width - 12;
                 int j = this.scrollerHeight();
                 int k = this.scrollBarY();
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SCROLLER_BACKGROUND_SPRITE, i, this.getY(), 6, this.getHeight());
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SCROLLER_SPRITE, i, k, 6, j);
+                guiGraphics.blitSprite(SCROLLER_BACKGROUND_SPRITE, i, this.getY(), 6, this.getHeight());
+                guiGraphics.blitSprite(SCROLLER_SPRITE, i, k, 6, j);
             }
         }
 
         @Override
         protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
-        }
-
-        @Override
-        public ScreenRectangle getBorderForArrowNavigation(ScreenDirection screenDirection) {
-            return new ScreenRectangle(this.getX(), this.getY(), this.width, this.contentHeight());
         }
 
         @Override
@@ -182,11 +174,6 @@ public class PageScrollableLayout implements Layout {
 
         @Override
         public List<? extends GuiEventListener> children() {
-            return this.children;
-        }
-
-        @Override
-        public Collection<? extends NarratableEntry> getNarratables() {
             return this.children;
         }
     }

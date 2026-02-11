@@ -1,0 +1,11 @@
+{
+  "minVersion": "0.8",
+  "package": "dev.worldgen.wikiful.mixin",
+  "mixins": [
+    "LootContextParamSetsAccessor"
+  ],
+  "client": [
+    "client.ToastComponentMixin",
+    "client.ToastInstanceMixin"
+  ]
+}

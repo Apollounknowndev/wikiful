@@ -3,11 +3,8 @@ package dev.worldgen.wikiful.impl.wiki.body;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.ClientAsset;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
-
-import java.util.Optional;
 
 public record SpriteBody(Identifier sprite, int textureWidth, int textureHeight, float scale, boolean centered) implements Body {
     public static final MapCodec<SpriteBody> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

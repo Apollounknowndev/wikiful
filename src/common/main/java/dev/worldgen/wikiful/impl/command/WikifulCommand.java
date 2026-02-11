@@ -8,6 +8,7 @@ import dev.worldgen.wikiful.impl.event.UnlockedPages;
 import dev.worldgen.wikiful.impl.event.UnlockedSections;
 import dev.worldgen.wikiful.impl.event.UnlockedTips;
 import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -18,8 +19,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.msrandom.multiplatform.annotations.Expect;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
@@ -28,7 +31,7 @@ public class WikifulCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext buildContext) {
         dispatcher.register(
-            literal("wikiful").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+            literal("wikiful").requires(hasGameMasterPermissions())
                 .then(createSubcommand(buildContext, "page", WikifulRegistries.PAGE, UnlockedPages.INSTANCE))
                 .then(createSubcommand(buildContext, "section", WikifulRegistries.SECTION, UnlockedSections.INSTANCE))
                 .then(createSubcommand(buildContext, "tip", WikifulRegistries.TIP, UnlockedTips.INSTANCE))
@@ -36,7 +39,7 @@ public class WikifulCommand {
     }
 
     private static <T> LiteralArgumentBuilder<CommandSourceStack> createSubcommand(CommandBuildContext buildContext, String name, ResourceKey<Registry<T>> key, UnlockedInfo info) {
-        return literal(name).requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS)).then(argument("target", EntityArgument.player())
+        return literal(name).requires(hasGameMasterPermissions()).then(argument("target", EntityArgument.player())
             .then(literal("unlock")
                 .then(argument("id", ResourceArgument.resource(buildContext, key))
                     .executes(context -> unlock(context.getSource(), name, info, EntityArgument.getPlayer(context, "target"), key, Optional.of(ResourceArgument.getResource(context, "id", key))))
@@ -89,4 +92,7 @@ public class WikifulCommand {
         source.sendSuccess(() -> Component.translatable("command.wikiful.locked_single." + name, id.toString()), false);
         return 1;
     }
+    
+    @Expect
+    private static Predicate<CommandSourceStack> hasGameMasterPermissions();
 }

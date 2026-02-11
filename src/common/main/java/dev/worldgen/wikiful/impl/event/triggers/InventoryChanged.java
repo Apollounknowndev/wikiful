@@ -14,7 +14,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.Optional;
 
 public record InventoryChanged(Optional<LootItemCondition> condition, Slots slots, List<ItemPredicate> items) implements EventTrigger {
     public static final MapCodec<InventoryChanged> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        EventTrigger.conditionCodec(LootContextParamSets.ADVANCEMENT_ENTITY).forGetter(InventoryChanged::condition),
+        EventTrigger.CONDITION_CODEC.forGetter(InventoryChanged::condition),
         Slots.CODEC.optionalFieldOf("slots", Slots.ANY).forGetter(InventoryChanged::slots),
         ItemPredicate.CODEC.listOf().optionalFieldOf("items", List.of()).forGetter(InventoryChanged::items)
     ).apply(instance, InventoryChanged::new));

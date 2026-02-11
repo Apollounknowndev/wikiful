@@ -42,18 +42,46 @@ cloche {
 
     common {
         mixins.from(file("src/common/main/wikiful.mixins.json"))
-        accessWideners.from(file("src/common/main/wikiful.accesswidener"))
     }
 
-    //val sharedOld = common("shared:1.21.1") {
-    //    mixins.from(file("src/shared/1.21.1/main/wikiful.21.1.mixins.json"))
-    //}
-    //val sharedNew = common("shared:1.21.11") {
-    //    mixins.from(file("src/shared/1.21.11/main/wikiful.21.11.mixins.json"))
-    //}
+    val sharedOld = common("shared:21.1") {
+        mixins.from(file("src/shared/21.1/main/wikiful.21.1.mixins.json"))
+        accessWideners.from(file("src/shared/21.1/main/wikiful.21.1.accesswidener"))
+    }
+    val sharedNew = common("shared:21.11") {
+        mixins.from(file("src/shared/21.11/main/wikiful.21.11.mixins.json"))
+        accessWideners.from(file("src/shared/21.11/main/wikiful.21.11.accesswidener"))
+    }
+
+    fabric("fabric:21.1") {
+        dependsOn(sharedOld)
+
+        loaderVersion = "0.18.2"
+        minecraftVersion = "1.21.1"
+
+        dependencies {
+            fabricApi("0.116.1")
+        }
+
+        includedClient()
+        runs {
+            client()
+            server()
+        }
+
+        metadata {
+            entrypoint("main") {
+                value = "dev.worldgen.wikiful.impl.WikifulEntrypoint"
+            }
+            entrypoint("client") {
+                value = "dev.worldgen.wikiful.impl.WikifulClientEntrypoint"
+            }
+        }
+    }
 
     fabric("fabric:21.11") {
-        //dependsOn(sharedNew)
+        dependsOn(sharedNew)
+
         loaderVersion = "0.18.2"
         minecraftVersion = "1.21.11"
 
@@ -77,8 +105,21 @@ cloche {
         }
     }
 
+    /*neoforge("neoforge:21.1") {
+        dependsOn(sharedOld)
+
+        loaderVersion = "21.1.218"
+        minecraftVersion = "1.21.1"
+
+        runs {
+            client()
+            server()
+        }
+    }*/
+
     neoforge("neoforge:21.11") {
-        //dependsOn(sharedNew)
+        dependsOn(sharedNew)
+
         loaderVersion = "21.11.38-beta"
         minecraftVersion = "1.21.11"
 

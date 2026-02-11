@@ -9,14 +9,13 @@ import net.minecraft.advancements.criterion.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.Optional;
 
 public record LocationChanged(Optional<LootItemCondition> condition, LocationPredicate location) implements EventTrigger {
     public static final MapCodec<LocationChanged> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        EventTrigger.conditionCodec(LootContextParamSets.ADVANCEMENT_ENTITY).forGetter(LocationChanged::condition),
+        EventTrigger.CONDITION_CODEC.forGetter(LocationChanged::condition),
         LocationPredicate.CODEC.fieldOf("location").forGetter(LocationChanged::location)
     ).apply(instance, LocationChanged::new));
 

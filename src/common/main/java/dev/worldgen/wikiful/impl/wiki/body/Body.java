@@ -3,6 +3,7 @@ package dev.worldgen.wikiful.impl.wiki.body;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import dev.worldgen.wikiful.api.registry.WikifulBuiltInRegistries;
+import dev.worldgen.wikiful.impl.Wikiful;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.util.ExtraCodecs;
 
@@ -20,7 +21,7 @@ public interface Body {
         ExtraCodecs.NON_NEGATIVE_INT,
         EmptyBody::new
     );
-    Codec<List<Body>> LIST_CODEC = ExtraCodecs.compactListCodec(FULL_CODEC);
+    Codec<List<Body>> LIST_CODEC = Wikiful.compactList(FULL_CODEC);
 
     MapCodec<? extends Body> codec();
 }
