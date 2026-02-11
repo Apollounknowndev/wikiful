@@ -43,10 +43,17 @@ cloche {
     common {
         mixins.from(file("src/common/main/wikiful.mixins.json"))
         accessWideners.from(file("src/common/main/wikiful.accesswidener"))
-
     }
 
-    fabric("fabric:1.21.11") {
+    //val sharedOld = common("shared:1.21.1") {
+    //    mixins.from(file("src/shared/1.21.1/main/wikiful.21.1.mixins.json"))
+    //}
+    //val sharedNew = common("shared:1.21.11") {
+    //    mixins.from(file("src/shared/1.21.11/main/wikiful.21.11.mixins.json"))
+    //}
+
+    fabric("fabric:21.11") {
+        //dependsOn(sharedNew)
         loaderVersion = "0.18.2"
         minecraftVersion = "1.21.11"
 
@@ -70,7 +77,8 @@ cloche {
         }
     }
 
-    neoforge("neoforge:1.21.11") {
+    neoforge("neoforge:21.11") {
+        //dependsOn(sharedNew)
         loaderVersion = "21.11.38-beta"
         minecraftVersion = "1.21.11"
 
