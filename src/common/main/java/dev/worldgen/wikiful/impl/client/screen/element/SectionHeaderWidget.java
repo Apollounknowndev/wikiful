@@ -13,13 +13,13 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Optional;
 
 public class SectionHeaderWidget extends AbstractWidget {
     public static final Component UNKNOWN_TITLE = Component.translatable("wikiful.unknown").withStyle(ChatFormatting.GRAY);
-    public static final ResourceLocation LOCKED_SPRITE = Wikiful.id("page/lock");
+    public static final Identifier LOCKED_SPRITE = Wikiful.id("page/lock");
     private static final float SCALE = 1.5f;
     private final Minecraft minecraft;
     private final Component title;
@@ -58,7 +58,7 @@ public class SectionHeaderWidget extends AbstractWidget {
         if (minecraft.player == null) {
             return sectionVisibility;
         }
-        boolean unlocked = key.map(t -> UnlockedSections.INSTANCE.hasUnlocked(minecraft.player, t.location())).orElse(true);
+        boolean unlocked = key.map(t -> UnlockedSections.INSTANCE.hasUnlocked(minecraft.player, t.identifier())).orElse(true);
         return unlocked ? Visibility.VISIBLE : sectionVisibility;
     }
 

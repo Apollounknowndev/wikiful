@@ -14,7 +14,7 @@ import net.minecraft.client.gui.navigation.ScreenDirection;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -89,8 +89,8 @@ public class PageScrollableLayout implements Layout {
     }
 
     class Container extends AbstractContainerWidget {
-        private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.withDefaultNamespace("widget/scroller");
-        private static final ResourceLocation SCROLLER_BACKGROUND_SPRITE = ResourceLocation.withDefaultNamespace("widget/scroller_background");
+        private static final Identifier SCROLLER_SPRITE = Identifier.withDefaultNamespace("widget/scroller");
+        private static final Identifier SCROLLER_BACKGROUND_SPRITE = Identifier.withDefaultNamespace("widget/scroller_background");
 
         private final Minecraft minecraft;
         private final List<AbstractWidget> children = new ArrayList<>();
@@ -120,11 +120,11 @@ public class PageScrollableLayout implements Layout {
             }
 
             guiGraphics.disableScissor();
-            this.renderScrollbar(guiGraphics);
+            this.renderScrollbar(guiGraphics, i, j);
         }
 
         @Override
-        protected void renderScrollbar(GuiGraphics guiGraphics) {
+        protected void renderScrollbar(GuiGraphics guiGraphics, int ignored, int ignored2) {
             if (this.scrollbarVisible()) {
                 int i = minecraft.screen.width - 12;
                 int j = this.scrollerHeight();

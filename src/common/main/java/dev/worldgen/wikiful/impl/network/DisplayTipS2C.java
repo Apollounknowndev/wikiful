@@ -4,11 +4,11 @@ import dev.worldgen.wikiful.impl.Wikiful;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public record DisplayTipS2C(ResourceLocation id) implements CustomPacketPayload {
+public record DisplayTipS2C(Identifier id) implements CustomPacketPayload {
     public static final StreamCodec<ByteBuf, DisplayTipS2C> CODEC = StreamCodec.composite(
-        ResourceLocation.STREAM_CODEC,
+        Identifier.STREAM_CODEC,
         DisplayTipS2C::id,
         DisplayTipS2C::new
     );

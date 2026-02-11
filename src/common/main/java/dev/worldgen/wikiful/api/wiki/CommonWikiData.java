@@ -9,7 +9,7 @@ import dev.worldgen.wikiful.impl.wiki.body.Body;
 import dev.worldgen.wikiful.impl.wiki.page.section.WikiSection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,11 +24,11 @@ public record CommonWikiData(Optional<EventTrigger> trigger, Component title, bo
         WikiSection.PAGE_CODEC.listOf().optionalFieldOf("sections", List.of()).forGetter(CommonWikiData::sections)
     ).apply(instance, CommonWikiData::new));
 
-    public record Sprites(ResourceLocation background) {
-        private static final ResourceLocation DEFAULT_BACKGROUND = Wikiful.id("page/box");
+    public record Sprites(Identifier background) {
+        private static final Identifier DEFAULT_BACKGROUND = Wikiful.id("page/box");
         public static final Sprites DEFAULT = new Sprites(DEFAULT_BACKGROUND);
         public static final Codec<Sprites> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResourceLocation.CODEC.fieldOf("background").orElse(DEFAULT_BACKGROUND).forGetter(Sprites::background)
+            Identifier.CODEC.fieldOf("background").orElse(DEFAULT_BACKGROUND).forGetter(Sprites::background)
         ).apply(instance, Sprites::new));
     }
 }

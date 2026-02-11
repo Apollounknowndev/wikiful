@@ -13,7 +13,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.resources.RegistryFixedCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 
@@ -67,7 +67,7 @@ public record WikiSection(Optional<Holder<WikiPage>> parent, Optional<EventTrigg
     }
 
     @Override
-    public void onTriggered(ServerPlayer player, ResourceLocation id) {
+    public void onTriggered(ServerPlayer player, Identifier id) {
         UnlockedSections.INSTANCE.add(player, id);
     }
 

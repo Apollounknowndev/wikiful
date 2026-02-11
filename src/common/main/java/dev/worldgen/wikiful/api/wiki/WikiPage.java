@@ -7,7 +7,7 @@ import dev.worldgen.wikiful.api.event.EventTrigger;
 import dev.worldgen.wikiful.api.registry.WikifulBuiltInRegistries;
 import dev.worldgen.wikiful.impl.event.UnlockedPages;
 import dev.worldgen.wikiful.impl.wiki.page.section.WikiSection;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public interface WikiPage extends TriggerHolder {
     }
 
     @Override
-    default void onTriggered(ServerPlayer player, ResourceLocation id) {
+    default void onTriggered(ServerPlayer player, Identifier id) {
         UnlockedPages.INSTANCE.add(player, id);
     }
 

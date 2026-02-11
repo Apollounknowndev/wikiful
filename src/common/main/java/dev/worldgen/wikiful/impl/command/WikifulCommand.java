@@ -16,7 +16,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class WikifulCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext buildContext) {
         dispatcher.register(
-            literal("wikiful").requires(Commands.hasPermission(2))
+            literal("wikiful").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(createSubcommand(buildContext, "page", WikifulRegistries.PAGE, UnlockedPages.INSTANCE))
                 .then(createSubcommand(buildContext, "section", WikifulRegistries.SECTION, UnlockedSections.INSTANCE))
                 .then(createSubcommand(buildContext, "tip", WikifulRegistries.TIP, UnlockedTips.INSTANCE))
@@ -36,7 +36,7 @@ public class WikifulCommand {
     }
 
     private static <T> LiteralArgumentBuilder<CommandSourceStack> createSubcommand(CommandBuildContext buildContext, String name, ResourceKey<Registry<T>> key, UnlockedInfo info) {
-        return literal(name).requires(Commands.hasPermission(2)).then(argument("target", EntityArgument.player())
+        return literal(name).requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS)).then(argument("target", EntityArgument.player())
             .then(literal("unlock")
                 .then(argument("id", ResourceArgument.resource(buildContext, key))
                     .executes(context -> unlock(context.getSource(), name, info, EntityArgument.getPlayer(context, "target"), key, Optional.of(ResourceArgument.getResource(context, "id", key))))
@@ -58,12 +58,12 @@ public class WikifulCommand {
 
     private static <T> int unlock(CommandSourceStack source, String name, UnlockedInfo info, ServerPlayer player, ResourceKey<Registry<T>> key, Optional<Holder.Reference<T>> entry) {
         if (entry.isEmpty()) {
-            source.registryAccess().lookupOrThrow(key).listElements().forEach(holder -> info.add(player, holder.key().location()));
+            source.registryAccess().lookupOrThrow(key).listElements().forEach(holder -> info.add(player, holder.key().identifier()));
             source.sendSuccess(() -> Component.translatable("command.wikiful.unlocked_all." + name), false);
             return 1;
         }
 
-        ResourceLocation id = entry.get().key().location();
+        Identifier id = entry.get().key().identifier();
         if (info.hasUnlocked(player, id)) {
             source.sendFailure(Component.translatable("command.wikiful.already_unlocked." + name, id.toString()));
             return 0;
@@ -80,7 +80,7 @@ public class WikifulCommand {
             return 1;
         }
 
-        ResourceLocation id = entry.get().key().location();
+        Identifier id = entry.get().key().identifier();
         if (!info.hasUnlocked(player, id)) {
             source.sendFailure(Component.translatable("command.wikiful.already_locked." + name, id.toString()));
             return 0;

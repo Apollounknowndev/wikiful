@@ -6,7 +6,7 @@ import dev.worldgen.wikiful.api.event.EventTrigger;
 import dev.worldgen.wikiful.api.event.EventTriggerType;
 import dev.worldgen.wikiful.impl.registry.WikifulEventTriggerTypes;
 import dev.worldgen.wikiful.impl.registry.WikifulLootParamSets;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;

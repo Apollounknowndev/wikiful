@@ -3,7 +3,6 @@ package dev.worldgen.wikiful.mixin.client;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.worldgen.wikiful.api.registry.WikifulRegistries;
-import dev.worldgen.wikiful.api.wiki.WikiPage;
 import dev.worldgen.wikiful.impl.Wikiful;
 import dev.worldgen.wikiful.impl.client.screen.WikiSelectScreen;
 import dev.worldgen.wikiful.impl.client.screen.YourProgressSubScreen;
@@ -13,7 +12,6 @@ import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.LayoutElement;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
@@ -48,7 +46,7 @@ public abstract class PauseScreenMixin extends Screen {
             var pages = Wikiful.filterHolders(
                 registries,
                 WikifulRegistries.PAGE,
-                page -> page.value().getTrigger().isEmpty() || UnlockedPages.INSTANCE.hasUnlocked(this.minecraft.player, page.key().location())
+                page -> page.value().getTrigger().isEmpty() || UnlockedPages.INSTANCE.hasUnlocked(this.minecraft.player, page.key().identifier())
             );
             if (!pages.isEmpty()) {
                 return operation.call(helper, openScreenButton(YOUR_PROGRESS, () -> new YourProgressSubScreen(this)));
@@ -72,7 +70,7 @@ public abstract class PauseScreenMixin extends Screen {
             var pages = Wikiful.filterHolders(
                 registries,
                 WikifulRegistries.PAGE,
-                page -> page.value().getTrigger().isEmpty() || UnlockedPages.INSTANCE.hasUnlocked(this.minecraft.player, page.key().location())
+                page -> page.value().getTrigger().isEmpty() || UnlockedPages.INSTANCE.hasUnlocked(this.minecraft.player, page.key().identifier())
             );
             if (!pages.isEmpty()) {
                 Screen screen = new WikiSelectScreen(WikiSelectScreen.TITLE, this.minecraft, this, pages, Wikiful.getReferences(registries, WikifulRegistries.CATEGORY));

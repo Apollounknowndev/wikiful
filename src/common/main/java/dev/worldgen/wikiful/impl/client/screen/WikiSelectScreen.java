@@ -22,13 +22,13 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.List;
 
 public class WikiSelectScreen extends Screen {
     public static final Component TITLE = Component.translatable("menu.wiki.title");
-    private static final ResourceLocation INWORLD_MENU_LIST_BACKGROUND = ResourceLocation.withDefaultNamespace("textures/gui/inworld_menu_list_background.png");
+    private static final Identifier INWORLD_MENU_LIST_BACKGROUND = Identifier.withDefaultNamespace("textures/gui/inworld_menu_list_background.png");
     private static final ResourceKey<WikiPage> INLINED_PAGE = ResourceKey.create(WikifulRegistries.PAGE, Wikiful.id("inlined"));
     private final Screen parent;
     private final RegistryAccess registries;
@@ -98,8 +98,8 @@ public class WikiSelectScreen extends Screen {
         this.pageButtons.setMaxHeight(this.layout.getContentHeight() - 19);
     }
 
-    public static ResourceLocation getId(Holder<WikiPage> page) {
-        return page.unwrapKey().orElse(INLINED_PAGE).location();
+    public static Identifier getId(Holder<WikiPage> page) {
+        return page.unwrapKey().orElse(INLINED_PAGE).identifier();
     }
 
     private Button button(Component title, Screen screen) {

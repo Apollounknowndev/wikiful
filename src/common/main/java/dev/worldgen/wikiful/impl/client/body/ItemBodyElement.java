@@ -2,14 +2,12 @@ package dev.worldgen.wikiful.impl.client.body;
 
 import dev.worldgen.wikiful.api.client.BodyElement;
 import dev.worldgen.wikiful.impl.wiki.body.Body;
-import dev.worldgen.wikiful.impl.wiki.body.EmptyBody;
 import dev.worldgen.wikiful.impl.wiki.body.ItemBody;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import static dev.worldgen.wikiful.impl.client.TipToast.SLOT_SPRITE;

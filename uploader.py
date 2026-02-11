@@ -7,17 +7,11 @@ import json
 MOD_ID = "wikiful"
 MOD_VERSION = "0.2.0"
 CHANGELOG = """
-All changes here are reflected in the [wiki](https://github.com/Apollounknowndev/wikiful/wiki).
-
-- Added wiki categories for organization purposes, which can contain both pages and subcategories. Seven built-in categories are added to keep broad categories of features (e.g. blocks, biomes) together.
-- Removed the `wiki_` prefix from the wiki page and wiki section folders.
-- Shrinked the size of wiki section headers.
-- Hid the wiki button if no wiki pages are available.
-- Added `destroyed_block` event trigger, with the same configuration as `hit_block`.
+- Update to 1.21.11.
 """
 UPLOAD_VERSIONS = [
-    ("fabric", "1.21.8"),
-    ("neoforge", "1.21.8"),
+    ("fabric", "1.21.11"),
+    #("neoforge", "1.21.11"),
 ]
 
 MODRINTH_ID = "eWGlDOiK"
@@ -39,9 +33,7 @@ if not CURSEFORGE_TOKEN:
     raise EnvironmentError("CURSEFORGE_TOKEN is unset!")
 CURSEFORGE_URL = f"https://minecraft.curseforge.com/api/v1/projects/{CURSEFORGE_ID}/upload-file"
 CURSEFORGE_GAME_VERSIONS = {
-    "1.20.1": [9990],
-    "1.21.1": [11779],
-    "1.21.8": [13422, 13506, 13620],
+    "1.21.11": [14406],
 }
 CURSEFORGE_LOADERS = {
     "fabric": 7499,

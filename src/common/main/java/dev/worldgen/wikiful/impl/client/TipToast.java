@@ -15,14 +15,14 @@ import net.minecraft.client.gui.components.toasts.ToastManager;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TipToast implements Toast {
-    public static final ResourceLocation SLOT_SPRITE = ResourceLocation.withDefaultNamespace("container/slot");
+    public static final Identifier SLOT_SPRITE = Identifier.withDefaultNamespace("container/slot");
 
     private final Tip tip;
     private final int contentWidth;

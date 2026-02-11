@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "2.1.0"
-    id("earth.terrarium.cloche") version "0.13.2"
+    id("earth.terrarium.cloche") version "0.18.1"
 }
 
 repositories {
@@ -21,9 +21,13 @@ group = "dev.worldgen.wikiful"
 version = "0.2.0"
 
 cloche {
-    mappings {
-        official()
-        parchment("2025.07.20@zip")
+    targets.all {
+        mappings {
+            official()
+            custom(minecraftVersion.map {
+                project.dependencies.create(files("mappings/$it.tiny"))
+            })
+        }
     }
 
     metadata {
@@ -42,12 +46,12 @@ cloche {
 
     }
 
-    fabric("fabric:1.21.8") {
-        loaderVersion = "0.17.0"
-        minecraftVersion = "1.21.8"
+    fabric("fabric:1.21.11") {
+        loaderVersion = "0.18.2"
+        minecraftVersion = "1.21.11"
 
         dependencies {
-            fabricApi("0.131.0")
+            fabricApi("0.141.3")
         }
 
         includedClient()
@@ -66,9 +70,9 @@ cloche {
         }
     }
 
-    neoforge("neoforge:1.21.8") {
-        loaderVersion = "21.8.4-beta"
-        minecraftVersion = "1.21.8"
+    neoforge("neoforge:1.21.11") {
+        loaderVersion = "21.11.38-beta"
+        minecraftVersion = "1.21.11"
 
         runs {
             client()
