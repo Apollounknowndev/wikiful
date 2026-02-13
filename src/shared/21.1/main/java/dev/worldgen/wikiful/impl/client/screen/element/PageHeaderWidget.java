@@ -22,7 +22,7 @@ public class PageHeaderWidget extends AbstractWidget {
         graphics.pose().pushPose();
         graphics.pose().translate(this.width / 2f - minecraft.font.width(title), this.getY() + 6, 0);
         graphics.pose().scale(2, 2, 1);
-        graphics.drawWordWrap(minecraft.font, title, 0, 0, width, -1);
+        graphics.drawString(minecraft.font, title, 0, 0, -1, true);
         graphics.pose().popPose();
     }
 

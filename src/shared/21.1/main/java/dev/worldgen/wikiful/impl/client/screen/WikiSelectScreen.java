@@ -1,19 +1,19 @@
 package dev.worldgen.wikiful.impl.client.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.api.wiki.CommonWikiData;
 import dev.worldgen.wikiful.api.wiki.WikiPage;
 import dev.worldgen.wikiful.impl.Wikiful;
-import dev.worldgen.wikiful.impl.client.screen.element.backport.ScrollableLayout;
 import dev.worldgen.wikiful.impl.event.UnlockedPages;
 import dev.worldgen.wikiful.impl.wiki.category.WikiCategory;
 import dev.worldgen.wikiful.impl.wiki.page.section.WikiSection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.*;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
-import net.minecraft.client.gui.layouts.LinearLayout;
+import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -34,7 +34,8 @@ public class WikiSelectScreen extends Screen {
 
     protected HeaderAndFooterLayout layout;
     protected EditBox searchBox;
-    private ScrollableLayout pageButtons;
+    private PageList buttonList;
+    
     private final List<Holder<WikiPage>> pages;
     private final List<Holder.Reference<WikiCategory>> categories;
     private final List<Holder.Reference<WikiSection>> sections;
@@ -63,7 +64,6 @@ public class WikiSelectScreen extends Screen {
         }
 
         this.setupPages(this.searchBox.getValue().toLowerCase());
-        this.layout.addToContents(this.pageButtons);
 
         this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, button -> this.onClose()).width(200).build());
 
@@ -72,15 +72,13 @@ public class WikiSelectScreen extends Screen {
     }
 
     private void setupPages(String search) {
-        LinearLayout linearLayout = LinearLayout.vertical().spacing(3);
-        linearLayout.defaultCellSetting().alignHorizontallyCenter();
-
+        this.buttonList = layout.addToContents(new PageList(minecraft, width));
         Player player = this.minecraft.player;
 
         for (Holder.Reference<WikiCategory> holder : this.categories) {
             WikiCategory category = holder.value();
             if (category.visible(player, search)) {
-                linearLayout.addChild(button(category.externalTitle(), new WikiSelectScreen(category.title(), minecraft, this, category.pages().stream().toList(), List.of())));
+                buttonList.addEntry(button(category.externalTitle(), new WikiSelectScreen(category.title(), minecraft, this, category.pages().stream().toList(), List.of())));
             }
         }
         for (Holder<WikiPage> page : this.pages) {
@@ -89,12 +87,9 @@ public class WikiSelectScreen extends Screen {
 
             String title = data.title().getString();
             if (search.isEmpty() || title.toLowerCase().contains(search)) {
-                linearLayout.addChild(button(data.title(), new WikiPageScreen(this, page.value(), collectSections(page))));
+                buttonList.addEntry(button(data.title(), new WikiPageScreen(this, page.value(), collectSections(page))));
             }
         }
-
-        this.pageButtons = new ScrollableLayout(this.minecraft, linearLayout, this.layout.getContentHeight());
-        this.pageButtons.setMaxHeight(this.layout.getContentHeight() - 19);
     }
 
     public static Identifier getId(Holder<WikiPage> page) {
@@ -125,12 +120,45 @@ public class WikiSelectScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int i, int j, float f) {
-        guiGraphics.blit(Screen.INWORLD_HEADER_SEPARATOR, 0, 50, 0.0F, 0.0F, this.width, 2, 32, 2);
-        guiGraphics.blit(Screen.INWORLD_FOOTER_SEPARATOR, 0, this.height - 33, 0.0F, 0.0F, this.width, 2, 32, 2);
-        guiGraphics.blit(INWORLD_MENU_LIST_BACKGROUND, 0, 51, 0.0F, 0.0F, this.width, this.height - 84  , 32, 32);
-
-        super.render(guiGraphics, i, j, f);
-        this.searchBox.render(guiGraphics, i, j, f);
+    public void render(GuiGraphics guiGraphics, int x, int y, float f) {
+        super.render(guiGraphics, x, y, f);
+        this.searchBox.render(guiGraphics, x, y, f);
+    }
+    
+    public class PageList extends ContainerObjectSelectionList<PageList.Entry> {
+        public PageList(Minecraft minecraft, int width) {
+            super(minecraft, width, WikiSelectScreen.this.layout.getContentHeight() - 25, 25, 25);
+        }
+        
+        public void addEntry(AbstractWidget widget) {
+            widget.setX(width / 2 - widget.getWidth() / 2);
+            this.addEntry(new Entry(widget));
+        }
+        
+        public void updateSize(int width, HeaderAndFooterLayout layout) {
+            super.updateSize(width, layout);
+            this.children().forEach(entry -> entry.widget.setX(width / 2 - entry.widget.getWidth() / 2));
+        }
+        
+        static class Entry extends ContainerObjectSelectionList.Entry<Entry> {
+            final AbstractWidget widget;
+            
+            Entry(AbstractWidget widget) {
+                this.widget = widget;
+            }
+            
+            public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
+                this.widget.setY(top);
+                this.widget.render(guiGraphics, mouseX, mouseY, partialTick);
+            }
+            
+            public List<? extends GuiEventListener> children() {
+                return List.of(this.widget);
+            }
+            
+            public List<? extends NarratableEntry> narratables() {
+                return List.of(this.widget);
+            }
+        }
     }
 }

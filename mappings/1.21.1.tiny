@@ -1,14 +1,25 @@
 tiny	2	0	official	named
-c	ad	net/minecraft/util/Util
 c	akq	net/minecraft/resources/ResourceKey
 	m	()Lakr;	a	identifier
 c	akr	net/minecraft/resources/Identifier
 c	bv	net/minecraft/advancements/criterion/EntityPredicate
+c	bv$a	net/minecraft/advancements/criterion/EntityPredicate$Builder
+c	bv$b	net/minecraft/advancements/criterion/EntityPredicate$LocationWrapper
 c	cg	net/minecraft/advancements/criterion/InventoryChangeTrigger
+c	cg$a	net/minecraft/advancements/criterion/InventoryChangeTrigger$Builder
+c	cg$a$a	net/minecraft/advancements/criterion/InventoryChangeTrigger$Builder$Slots
 c	cs	net/minecraft/advancements/criterion/ItemPredicate
+c	cs$a	net/minecraft/advancements/criterion/ItemPredicate$Builder
 c	df	net/minecraft/advancements/criterion/LocationPredicate
+c	df$a	net/minecraft/advancements/criterion/LocationPredicate$Builder
+c	df$b	net/minecraft/advancements/criterion/LocationPredicate$PositionPredicate
 c	dh	net/minecraft/advancements/criterion/MinMaxBounds
 c	dh$a	net/minecraft/advancements/criterion/MinMaxBounds$Bounds
 c	dh$c	net/minecraft/advancements/criterion/MinMaxBounds$Doubles
 c	dh$d	net/minecraft/advancements/criterion/MinMaxBounds$Ints
 c	eb	net/minecraft/advancements/criterion/StatePropertiesPredicate
+c	eb$a	net/minecraft/advancements/criterion/StatePropertiesPredicate$Builder
+c	eb$b	net/minecraft/advancements/criterion/StatePropertiesPredicate$ExactMatcher
+c	eb$c	net/minecraft/advancements/criterion/StatePropertiesPredicate$PropertyMatcher
+c	eb$d	net/minecraft/advancements/criterion/StatePropertiesPredicate$RangedMatcher
+c	eb$e	net/minecraft/advancements/criterion/StatePropertiesPredicate$ValueMatcher

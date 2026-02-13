@@ -4,17 +4,14 @@ plugins {
 }
 
 repositories {
+    cloche.librariesMinecraft()
+    mavenCentral()
     cloche {
+        main()
         mavenNeoforgedMeta()
         mavenNeoforged()
-        mavenForge()
         mavenFabric()
-        mavenParchment()
-        librariesMinecraft()
-        main()
     }
-    mavenCentral()
-    maven("https://api.modrinth.com/maven")
 }
 
 group = "dev.worldgen.wikiful"
@@ -42,6 +39,10 @@ cloche {
 
     common {
         mixins.from(file("src/common/main/wikiful.mixins.json"))
+
+        dependencies {
+            compileOnly("org.spongepowered:mixin:0.8.3")
+        }
     }
 
     val sharedOld = common("shared:21.1") {
@@ -105,7 +106,7 @@ cloche {
         }
     }
 
-    /*neoforge("neoforge:21.1") {
+    neoforge("neoforge:21.1") {
         dependsOn(sharedOld)
 
         loaderVersion = "21.1.218"
@@ -115,7 +116,7 @@ cloche {
             client()
             server()
         }
-    }*/
+    }
 
     neoforge("neoforge:21.11") {
         dependsOn(sharedNew)

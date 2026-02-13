@@ -2,8 +2,6 @@ package dev.worldgen.wikiful.impl.client.body;
 
 import dev.worldgen.wikiful.api.client.BodyElement;
 import dev.worldgen.wikiful.impl.wiki.body.Body;
-import dev.worldgen.wikiful.impl.wiki.body.EmptyBody;
-import dev.worldgen.wikiful.impl.wiki.body.ItemBody;
 import dev.worldgen.wikiful.impl.wiki.body.TextBody;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

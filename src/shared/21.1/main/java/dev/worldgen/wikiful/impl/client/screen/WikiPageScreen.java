@@ -1,5 +1,6 @@
 package dev.worldgen.wikiful.impl.client.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.worldgen.wikiful.api.wiki.WikiPage;
 import dev.worldgen.wikiful.impl.client.screen.element.BodyWidget;
 import dev.worldgen.wikiful.impl.client.screen.element.PageHeaderWidget;
@@ -93,10 +94,12 @@ public class WikiPageScreen extends Screen {
         this.minecraft.setScreen(this.parent);
         this.parent.setInitialFocus();
     }
-
+    
     @Override
-    public void render(GuiGraphics guiGraphics, int f, int g, float tickDelta) {
+    public void renderBackground(GuiGraphics guiGraphics, int x, int y, float f) {
+        super.renderBackground(guiGraphics, x, y, f);
+        RenderSystem.enableBlend();
         guiGraphics.blitSprite(page.commonData().sprites().background(), 4, 31, this.width - 8, this.height - 62);
-        super.render(guiGraphics, f, g, tickDelta);
+        RenderSystem.disableBlend();
     }
 }

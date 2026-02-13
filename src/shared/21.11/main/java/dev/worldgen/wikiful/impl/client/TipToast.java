@@ -2,6 +2,7 @@ package dev.worldgen.wikiful.impl.client;
 
 import dev.worldgen.wikiful.api.client.BodyElement;
 import dev.worldgen.wikiful.api.client.BodyElementRegistry;
+import dev.worldgen.wikiful.impl.WikifulClient;
 import dev.worldgen.wikiful.impl.wiki.body.Body;
 import dev.worldgen.wikiful.impl.wiki.tip.Tip;
 import net.minecraft.client.Minecraft;
@@ -20,7 +21,7 @@ public class TipToast implements Toast {
 
     private final Tip tip;
     private final int contentWidth;
-    private final float displayTime;
+    private float displayTime;
 
     private List<BodyElement> elements = null;
     private int height = 1;
@@ -49,8 +50,9 @@ public class TipToast implements Toast {
     }
 
     @Override
-    public void update(ToastManager toastManager, long l) {
-        this.wantedVisibility = l >= this.displayTime * toastManager.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
+    public void update(ToastManager toastManager, long fullyVisibleFor) {
+        if (WikifulClient.DISMISS_TIP.isDown() && !this.tip.cannotDismiss()) this.displayTime = 0;
+        this.wantedVisibility = fullyVisibleFor >= this.displayTime * toastManager.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
     }
 
     @Override
@@ -59,6 +61,9 @@ public class TipToast implements Toast {
             this.elements = new ArrayList<>();
             for (Body body : tip.body()) {
                 this.elements.add(BodyElementRegistry.createElement(body));
+            }
+            if (!tip.cannotDismiss()) {
+                this.elements.add(BodyElementRegistry.createElement(Tip.DISMISS_BODY));
             }
         }
 

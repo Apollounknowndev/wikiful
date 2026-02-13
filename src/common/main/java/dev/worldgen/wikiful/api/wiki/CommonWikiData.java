@@ -25,7 +25,7 @@ public record CommonWikiData(Optional<EventTrigger> trigger, Component title, bo
     ).apply(instance, CommonWikiData::new));
 
     public record Sprites(Identifier background) {
-        private static final Identifier DEFAULT_BACKGROUND = Wikiful.id("page/box");
+        public static final Identifier DEFAULT_BACKGROUND = Wikiful.id("page/box");
         public static final Sprites DEFAULT = new Sprites(DEFAULT_BACKGROUND);
         public static final Codec<Sprites> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("background").orElse(DEFAULT_BACKGROUND).forGetter(Sprites::background)

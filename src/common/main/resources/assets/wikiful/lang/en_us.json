@@ -6,6 +6,11 @@
   "gui.wiki": "Wiki...",
   "menu.wiki.title": "Wiki",
 
+  "tip.wikiful.dismiss": "Press [%s] to dismiss",
+
+  "key.category.wikiful.wikiful": "Wikiful",
+  "key.wikiful.dismiss_tip": "Dismiss Tip",
+
   "command.wikiful.unlocked_single.page": "Unlocked page '%s' for player",
   "command.wikiful.unlocked_all.page": "Unlocked all pages for player",
   "command.wikiful.already_unlocked.page": "Page '%s' is already unlocked for player",

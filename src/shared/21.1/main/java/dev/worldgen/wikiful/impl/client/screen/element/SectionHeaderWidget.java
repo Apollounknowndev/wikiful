@@ -75,7 +75,7 @@ public class SectionHeaderWidget extends AbstractWidget {
             graphics.blitSprite(LOCKED_SPRITE, 0, 0, 8, 8);
             textX = 12;
         }
-        graphics.drawWordWrap(minecraft.font, title, textX, 0, width, -1);
+        graphics.drawString(minecraft.font, title, textX, 0, -1, true);
         graphics.pose().popPose();
 
         int lineY = this.getY() + this.getHeight() - 6;

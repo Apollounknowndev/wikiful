@@ -3,6 +3,7 @@ package dev.worldgen.wikiful.mixin.trigger;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.worldgen.wikiful.impl.event.triggers.MenuOpened;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +19,7 @@ public abstract class ServerPlayerMixin {
         )
     )
     private void fireMenuOpened(ServerPlayer player, AbstractContainerMenu menu, Operation<Void> operation) {
-        MenuOpened.trigger(player.level(), player, menu.getType());
+        MenuOpened.trigger((ServerLevel) player.level(), player, menu.getType());
         operation.call(player, menu);
     }
 }

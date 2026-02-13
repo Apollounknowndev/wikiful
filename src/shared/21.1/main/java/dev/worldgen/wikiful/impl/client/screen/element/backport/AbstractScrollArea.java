@@ -44,7 +44,7 @@ public abstract class AbstractScrollArea extends AbstractWidget {
 		}
 	}
 	
-	public void onRelease(double x, double y, int buttonInfo) {
+	public void onRelease(double x, double y) {
 		this.scrolling = false;
 	}
 	
