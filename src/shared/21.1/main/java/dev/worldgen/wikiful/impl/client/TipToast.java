@@ -1,5 +1,6 @@
 package dev.worldgen.wikiful.impl.client;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.worldgen.wikiful.api.client.BodyElement;
 import dev.worldgen.wikiful.api.client.BodyElementRegistry;
 import dev.worldgen.wikiful.impl.WikifulClient;
@@ -53,6 +54,7 @@ public class TipToast implements Toast {
             }
         }
         
+        RenderSystem.enableBlend();
         guiGraphics.blitSprite(tip.sprite(), 0, 0, this.width(), this.height());
         
         int y = tip.padding();
@@ -63,6 +65,7 @@ public class TipToast implements Toast {
         if (height == 1) {
             height = y + tip.padding() - 2;
         }
+        RenderSystem.disableBlend();
         
         return wantedVisibility;
     }

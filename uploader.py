@@ -5,13 +5,16 @@ import json
 # Per-mod: Update this for each mod!!!
 
 MOD_ID = "wikiful"
-MOD_VERSION = "0.2.0"
+MOD_VERSION = "0.3.1"
 CHANGELOG = """
-- Update to 1.21.11.
+- Fixed tips being opaque on 1.21.1
+- Fixed version numbering on Modrinth
 """
 UPLOAD_VERSIONS = [
+    ("fabric", "1.21.1"),
+    ("neoforge", "1.21.1"),
     ("fabric", "1.21.11"),
-    #("neoforge", "1.21.11"),
+    ("neoforge", "1.21.11"),
 ]
 
 MODRINTH_ID = "eWGlDOiK"
@@ -33,6 +36,7 @@ if not CURSEFORGE_TOKEN:
     raise EnvironmentError("CURSEFORGE_TOKEN is unset!")
 CURSEFORGE_URL = f"https://minecraft.curseforge.com/api/v1/projects/{CURSEFORGE_ID}/upload-file"
 CURSEFORGE_GAME_VERSIONS = {
+    "1.21.1": [11779],
     "1.21.11": [14406],
 }
 CURSEFORGE_LOADERS = {
@@ -47,7 +51,7 @@ CURSEFORGE_LOADERS = {
 def upload_modrinth(loader: str, version: str, file_path: str):
     metadata = {
         "name": f"v{MOD_VERSION} ~ {loader.title()} {version}",
-        "version_number": MOD_VERSION,
+        "version_number": f"{MOD_VERSION}-{loader}-{version}",
         "project_id": MODRINTH_ID,
         "game_versions": [version],
         "loaders": [loader],
@@ -133,7 +137,7 @@ for modloader, game_version in UPLOAD_VERSIONS:
         BASE_FOLDER,
         'build',
         'libs',
-        f'{MOD_ID}-{MOD_VERSION}-{modloader}-{game_version}.jar'
+        f'{MOD_ID}-{MOD_VERSION}-{modloader}-{game_version[2:]}.jar'
     )
 
     if not os.path.exists(mod_path):
@@ -142,3 +146,5 @@ for modloader, game_version in UPLOAD_VERSIONS:
 
     upload_modrinth(modloader, game_version, mod_path)
     upload_curseforge(modloader, game_version, mod_path)
+
+input("Press any key to exit")

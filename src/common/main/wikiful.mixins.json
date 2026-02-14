@@ -6,8 +6,5 @@
     "trigger.InventoryChangeTriggerMixin",
     "trigger.ItemStackMixin",
     "trigger.ServerPlayerMixin"
-  ],
-  "client": [
-    "client.PauseScreenMixin"
   ]
 }

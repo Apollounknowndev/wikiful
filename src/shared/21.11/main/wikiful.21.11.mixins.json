@@ -5,6 +5,7 @@
     "LootContextParamSetsAccessor"
   ],
   "client": [
+    "client.PauseScreenMixin",
     "client.ToastManagerMixin",
     "client.ToastInstanceMixin"
   ]

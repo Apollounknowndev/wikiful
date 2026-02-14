@@ -15,7 +15,7 @@ repositories {
 }
 
 group = "dev.worldgen.wikiful"
-version = "0.3.0"
+version = "0.3.1"
 
 cloche {
     targets.all {
