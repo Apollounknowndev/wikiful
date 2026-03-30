@@ -10,11 +10,13 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.msrandom.multiplatform.annotations.Expect;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +46,7 @@ public record InventoryChanged(Optional<LootItemCondition> condition, Slots slot
                 empty++;
             } else {
                 occupied++;
-                if (itemStack2.getCount() >= itemStack2.getMaxStackSize()) {
+                if (itemStack2.getCount() >= itemStack2.get(DataComponents.MAX_STACK_SIZE)) {
                     full++;
                 }
             }
@@ -63,15 +65,18 @@ public record InventoryChanged(Optional<LootItemCondition> condition, Slots slot
 
                 ItemStack stack = inventory.getItem(i);
                 if (!stack.isEmpty()) {
-                    predicates.removeIf((predicate) -> predicate.test(stack));
+                    predicates.removeIf(predicate -> test(predicate, stack));
                 }
             }
 
             return predicates.isEmpty();
         } else {
-            return !changedStack.isEmpty() && this.items.getFirst().test(changedStack);
+            return !changedStack.isEmpty() && test(this.items.getFirst(), changedStack);
         }
     }
+    
+    @Expect
+    public static boolean test(ItemPredicate predicate, ItemStack stack);
 
     private boolean matches(LootContext context, ServerPlayer player, Inventory inventory, ItemStack changedStack) {
         if (!this.matches(inventory, changedStack)) return false;

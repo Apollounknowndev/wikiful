@@ -7,14 +7,13 @@ import json
 MOD_ID = "wikiful"
 MOD_VERSION = "0.3.1"
 CHANGELOG = """
-- Fixed tips being opaque on 1.21.1
-- Fixed version numbering on Modrinth
+- Update to 26.1.
 """
 UPLOAD_VERSIONS = [
-    ("fabric", "1.21.1"),
-    ("neoforge", "1.21.1"),
-    ("fabric", "1.21.11"),
-    ("neoforge", "1.21.11"),
+    #("fabric", "21.1"),
+    #("neoforge", "21.1"),
+    ("fabric", "26.1"),
+    ("neoforge", "26.1"),
 ]
 
 MODRINTH_ID = "eWGlDOiK"
@@ -30,14 +29,18 @@ BASE_FOLDER = os.path.dirname(os.path.abspath(__file__))
 MODRINTH_TOKEN = os.getenv('TOKEN_MR')
 if not MODRINTH_TOKEN:
     raise EnvironmentError("MODRINTH_TOKEN is unset!")
+MODRINTH_GAME_VERSIONS = {
+    "21.1": ["1.21.1"],
+    "26.1": ["26.1"],
+}
 
 CURSEFORGE_TOKEN = os.getenv('TOKEN_CF')
 if not CURSEFORGE_TOKEN:
     raise EnvironmentError("CURSEFORGE_TOKEN is unset!")
 CURSEFORGE_URL = f"https://minecraft.curseforge.com/api/v1/projects/{CURSEFORGE_ID}/upload-file"
 CURSEFORGE_GAME_VERSIONS = {
-    "1.21.1": [11779],
-    "1.21.11": [14406],
+    "21.1": [11779],
+    "26.1": [15933],
 }
 CURSEFORGE_LOADERS = {
     "fabric": 7499,
@@ -49,11 +52,14 @@ CURSEFORGE_LOADERS = {
 # Code
 
 def upload_modrinth(loader: str, version: str, file_path: str):
+
+    game_versions = MODRINTH_GAME_VERSIONS.get(version)
+
     metadata = {
         "name": f"v{MOD_VERSION} ~ {loader.title()} {version}",
         "version_number": f"{MOD_VERSION}-{loader}-{version}",
         "project_id": MODRINTH_ID,
-        "game_versions": [version],
+        "game_versions": game_versions,
         "loaders": [loader],
         "featured": True,
         "changelog": CHANGELOG,
@@ -137,7 +143,7 @@ for modloader, game_version in UPLOAD_VERSIONS:
         BASE_FOLDER,
         'build',
         'libs',
-        f'{MOD_ID}-{MOD_VERSION}-{modloader}-{game_version[2:]}.jar'
+        f'{MOD_ID}-{MOD_VERSION}-{modloader}-{game_version}.jar'
     )
 
     if not os.path.exists(mod_path):
@@ -147,4 +153,4 @@ for modloader, game_version in UPLOAD_VERSIONS:
     upload_modrinth(modloader, game_version, mod_path)
     upload_curseforge(modloader, game_version, mod_path)
 
-input("Press any key to exit")
+input("Press any key to close")

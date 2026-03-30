@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "2.1.0"
-    id("earth.terrarium.cloche") version "0.18.1"
+    id("earth.terrarium.cloche") version "0.18.10"
 }
 
 repositories {
@@ -18,15 +18,6 @@ group = "dev.worldgen.wikiful"
 version = "0.3.1"
 
 cloche {
-    targets.all {
-        mappings {
-            official()
-            custom(minecraftVersion.map {
-                project.dependencies.create(files("mappings/$it.tiny"))
-            })
-        }
-    }
-
     metadata {
         modId = "wikiful"
         name = "Wikiful"
@@ -49,16 +40,23 @@ cloche {
         mixins.from(file("src/shared/21.1/main/wikiful.21.1.mixins.json"))
         accessWideners.from(file("src/shared/21.1/main/wikiful.21.1.accesswidener"))
     }
-    val sharedNew = common("shared:21.11") {
-        mixins.from(file("src/shared/21.11/main/wikiful.21.11.mixins.json"))
-        accessWideners.from(file("src/shared/21.11/main/wikiful.21.11.accesswidener"))
+    val sharedNew = common("shared:26.1") {
+        mixins.from(file("src/shared/26.1/main/wikiful.26.1.mixins.json"))
+        accessWideners.from(file("src/shared/26.1/main/wikiful.26.1.accesswidener"))
     }
 
     fabric("fabric:21.1") {
         dependsOn(sharedOld)
 
-        loaderVersion = "0.18.2"
+        loaderVersion = "0.18.4"
         minecraftVersion = "1.21.1"
+
+        mappings {
+            official()
+            custom(minecraftVersion.map {
+                project.dependencies.create(files("mappings/$it.tiny"))
+            })
+        }
 
         dependencies {
             fabricApi("0.116.1")
@@ -80,14 +78,14 @@ cloche {
         }
     }
 
-    fabric("fabric:21.11") {
+    fabric("fabric:26.1") {
         dependsOn(sharedNew)
 
-        loaderVersion = "0.18.2"
-        minecraftVersion = "1.21.11"
+        loaderVersion = "0.18.4"
+        minecraftVersion = "26.1"
 
         dependencies {
-            fabricApi("0.141.3")
+            fabricApi("0.144.3")
         }
 
         includedClient()
@@ -112,17 +110,24 @@ cloche {
         loaderVersion = "21.1.218"
         minecraftVersion = "1.21.1"
 
+        mappings {
+            official()
+            custom(minecraftVersion.map {
+                project.dependencies.create(files("mappings/$it.tiny"))
+            })
+        }
+
         runs {
             client()
             server()
         }
     }
 
-    neoforge("neoforge:21.11") {
+    neoforge("neoforge:26.1") {
         dependsOn(sharedNew)
 
-        loaderVersion = "21.11.38-beta"
-        minecraftVersion = "1.21.11"
+        loaderVersion = "26.1.0.8-beta"
+        minecraftVersion = "26.1"
 
         runs {
             client()

@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.worldgen.wikiful.api.event.EventTrigger;
 import dev.worldgen.wikiful.api.event.EventTriggerType;
+import dev.worldgen.wikiful.impl.Wikiful;
 import dev.worldgen.wikiful.impl.event.LootContextHelper;
 import dev.worldgen.wikiful.impl.registry.WikifulEventTriggerTypes;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
@@ -34,7 +35,7 @@ public record BlockHit(Optional<LootItemCondition> condition, Optional<HolderSet
     }
 
     private boolean matches(LootContext context, BlockState state) {
-        if (!this.blocks.map(state::is).orElse(true)) return false;
+        if (!Wikiful.is(state, this.blocks)) return false;
         if (!this.properties.map(predicate -> predicate.matches(state)).orElse(true)) return false;
         return this.condition.map(predicate -> predicate.test(context)).orElse(true);
     }

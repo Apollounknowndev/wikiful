@@ -10,7 +10,6 @@ public interface WikifulBodyTypes {
 
     static void init() {
         register("text", TextBody.CODEC);
-        register("item", ItemBody.CODEC);
         register("sprite", SpriteBody.CODEC);
         register("empty", EmptyBody.CODEC);
         register("horizontal_line", HorizontalLineBody.CODEC);

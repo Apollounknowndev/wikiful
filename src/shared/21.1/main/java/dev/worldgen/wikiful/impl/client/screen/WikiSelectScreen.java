@@ -1,6 +1,5 @@
 package dev.worldgen.wikiful.impl.client.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.worldgen.wikiful.api.registry.WikifulRegistries;
 import dev.worldgen.wikiful.api.wiki.CommonWikiData;
 import dev.worldgen.wikiful.api.wiki.WikiPage;
@@ -127,11 +126,12 @@ public class WikiSelectScreen extends Screen {
     
     public class PageList extends ContainerObjectSelectionList<PageList.Entry> {
         public PageList(Minecraft minecraft, int width) {
-            super(minecraft, width, WikiSelectScreen.this.layout.getContentHeight() - 25, 25, 25);
+            super(minecraft, width, WikiSelectScreen.this.layout.getContentHeight() - 22, 22, 25);
         }
         
         public void addEntry(AbstractWidget widget) {
             widget.setX(width / 2 - widget.getWidth() / 2);
+            widget.setY(0);
             this.addEntry(new Entry(widget));
         }
         

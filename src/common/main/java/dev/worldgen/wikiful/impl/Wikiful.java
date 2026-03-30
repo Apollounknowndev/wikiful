@@ -2,15 +2,19 @@ package dev.worldgen.wikiful.impl;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.msrandom.multiplatform.annotations.Expect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class Wikiful {
@@ -22,6 +26,9 @@ public class Wikiful {
     
     @Expect
     public static <T> Registry<T> registry(RegistryAccess registries, ResourceKey<? extends Registry<T>> key);
+    
+    @Expect
+    public static boolean is(BlockState state, Optional<HolderSet<Block>> block);
 
     public static Identifier id(String name) {
         return Identifier.fromNamespaceAndPath(MOD_ID, name);

@@ -7,7 +7,6 @@ import dev.worldgen.wikiful.api.event.EventTrigger;
 import dev.worldgen.wikiful.impl.Wikiful;
 import dev.worldgen.wikiful.impl.event.UnlockedTips;
 import dev.worldgen.wikiful.impl.wiki.body.Body;
-import dev.worldgen.wikiful.impl.wiki.body.ItemBody;
 import dev.worldgen.wikiful.impl.wiki.body.TextBody;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
