@@ -3,7 +3,7 @@ package dev.worldgen.wikiful.api.registry;
 import com.mojang.serialization.MapCodec;
 import dev.worldgen.wikiful.api.event.EventTriggerType;
 import dev.worldgen.wikiful.impl.wiki.body.Body;
-import dev.worldgen.wikiful.api.wiki.WikiPage;
+import dev.worldgen.wikiful.api.wiki.page.WikiPage;
 import net.minecraft.core.Registry;
 
 import net.msrandom.multiplatform.annotations.Expect;

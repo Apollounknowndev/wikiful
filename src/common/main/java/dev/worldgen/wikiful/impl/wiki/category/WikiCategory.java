@@ -3,7 +3,7 @@ package dev.worldgen.wikiful.impl.wiki.category;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.worldgen.wikiful.api.registry.WikifulRegistries;
-import dev.worldgen.wikiful.api.wiki.WikiPage;
+import dev.worldgen.wikiful.api.wiki.page.WikiPage;
 import dev.worldgen.wikiful.impl.Wikiful;
 import dev.worldgen.wikiful.impl.event.UnlockedPages;
 import net.minecraft.core.Holder;

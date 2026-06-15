@@ -3,7 +3,7 @@ package dev.worldgen.wikiful.impl;
 import com.mojang.serialization.MapCodec;
 import dev.worldgen.wikiful.api.event.EventTriggerType;
 import dev.worldgen.wikiful.api.registry.WikifulRegistries;
-import dev.worldgen.wikiful.api.wiki.WikiPage;
+import dev.worldgen.wikiful.api.wiki.page.WikiPage;
 import dev.worldgen.wikiful.impl.attachment.Attachments;
 import dev.worldgen.wikiful.impl.command.WikifulCommand;
 import dev.worldgen.wikiful.impl.network.DisplayTipS2C;

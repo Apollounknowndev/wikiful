@@ -1,11 +1,8 @@
 package dev.worldgen.wikiful.impl.registry;
 
 import com.mojang.serialization.MapCodec;
-import dev.worldgen.wikiful.api.registry.WikifulBuiltInRegistries;
-import dev.worldgen.wikiful.api.wiki.WikiPage;
-import dev.worldgen.wikiful.impl.Wikiful;
+import dev.worldgen.wikiful.api.wiki.page.WikiPage;
 import dev.worldgen.wikiful.impl.WikifulEntrypoint;
-import net.minecraft.core.Registry;
 import net.msrandom.multiplatform.annotations.Actual;
 
 public interface WikifulWikiPageTypesActual {

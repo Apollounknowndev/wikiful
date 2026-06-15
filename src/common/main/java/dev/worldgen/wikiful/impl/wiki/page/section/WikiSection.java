@@ -5,7 +5,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.worldgen.wikiful.api.event.EventTrigger;
 import dev.worldgen.wikiful.api.registry.WikifulRegistries;
-import dev.worldgen.wikiful.api.wiki.WikiPage;
+import dev.worldgen.wikiful.api.wiki.page.WikiPage;
 import dev.worldgen.wikiful.impl.event.TriggerHolder;
 import dev.worldgen.wikiful.impl.event.UnlockedSections;
 import dev.worldgen.wikiful.impl.wiki.body.Body;

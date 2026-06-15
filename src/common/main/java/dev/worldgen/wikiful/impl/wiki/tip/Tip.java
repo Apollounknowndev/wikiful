@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 public record Tip(EventTrigger trigger, Identifier sprite, int width, int padding, float displayTimeMultiplier, boolean cannotDismiss, List<Body> body) implements TriggerHolder {
-    private static final Identifier DEFAULT_SPRITE = Wikiful.id("tip/default");
+    public static final Identifier DEFAULT_SPRITE = Wikiful.id("tip/default");
     public static final Body DISMISS_BODY = new TextBody(Component.translatable("tip.wikiful.dismiss", Component.keybind("key.wikiful.dismiss_tip")).withStyle(ChatFormatting.GRAY));
     public static final Codec<Tip> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         EventTrigger.CODEC.fieldOf("trigger").forGetter(Tip::trigger),

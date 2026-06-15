@@ -5,13 +5,13 @@ import json
 # Per-mod: Update this for each mod!!!
 
 MOD_ID = "wikiful"
-MOD_VERSION = "0.3.1"
+MOD_VERSION = "0.3.2"
 CHANGELOG = """
-- Update to 26.1.
+Add datagenning methods for mods reliant on Wikiful.
 """
 UPLOAD_VERSIONS = [
-    #("fabric", "21.1"),
-    #("neoforge", "21.1"),
+    ("fabric", "21.1"),
+    ("neoforge", "21.1"),
     ("fabric", "26.1"),
     ("neoforge", "26.1"),
 ]

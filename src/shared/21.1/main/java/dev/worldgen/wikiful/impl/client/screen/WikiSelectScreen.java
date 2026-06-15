@@ -1,8 +1,8 @@
 package dev.worldgen.wikiful.impl.client.screen;
 
 import dev.worldgen.wikiful.api.registry.WikifulRegistries;
-import dev.worldgen.wikiful.api.wiki.CommonWikiData;
-import dev.worldgen.wikiful.api.wiki.WikiPage;
+import dev.worldgen.wikiful.api.wiki.page.CommonWikiData;
+import dev.worldgen.wikiful.api.wiki.page.WikiPage;
 import dev.worldgen.wikiful.impl.Wikiful;
 import dev.worldgen.wikiful.impl.event.UnlockedPages;
 import dev.worldgen.wikiful.impl.wiki.category.WikiCategory;

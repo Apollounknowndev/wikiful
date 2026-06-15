@@ -1,4 +1,4 @@
-package dev.worldgen.wikiful.api.wiki;
+package dev.worldgen.wikiful.api.wiki.page;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

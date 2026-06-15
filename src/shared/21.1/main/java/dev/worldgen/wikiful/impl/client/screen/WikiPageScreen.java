@@ -1,7 +1,7 @@
 package dev.worldgen.wikiful.impl.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.worldgen.wikiful.api.wiki.WikiPage;
+import dev.worldgen.wikiful.api.wiki.page.WikiPage;
 import dev.worldgen.wikiful.impl.client.screen.element.BodyWidget;
 import dev.worldgen.wikiful.impl.client.screen.element.PageHeaderWidget;
 import dev.worldgen.wikiful.impl.client.screen.element.PageScrollableLayout;

@@ -11,6 +11,10 @@ public record HorizontalLineBody(int height, int spacing, ColorRGBA color) imple
         ExtraCodecs.NON_NEGATIVE_INT.fieldOf("spacing").orElse(0).forGetter(HorizontalLineBody::spacing),
         ColorRGBA.CODEC.fieldOf("color").orElse(new ColorRGBA(0xFFFFFFFF)).forGetter(HorizontalLineBody::color)
     ).apply(instance, HorizontalLineBody::new));
+    
+    public HorizontalLineBody(int height, int spacing, int color) {
+        this(height, spacing, new ColorRGBA(color));
+    }
 
     @Override
     public MapCodec<? extends Body> codec() {

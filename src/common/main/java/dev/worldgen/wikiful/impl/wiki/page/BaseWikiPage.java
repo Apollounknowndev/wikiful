@@ -2,8 +2,8 @@ package dev.worldgen.wikiful.impl.wiki.page;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.worldgen.wikiful.api.wiki.CommonWikiData;
-import dev.worldgen.wikiful.api.wiki.WikiPage;
+import dev.worldgen.wikiful.api.wiki.page.CommonWikiData;
+import dev.worldgen.wikiful.api.wiki.page.WikiPage;
 import dev.worldgen.wikiful.impl.wiki.page.section.WikiSection;
 
 import java.util.List;
