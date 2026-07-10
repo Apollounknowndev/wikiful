@@ -1,5 +1,0 @@
-accessWidener v1 named
-
-accessible class net/minecraft/client/gui/components/toasts/ToastComponent$ToastInstance
-accessible method net/minecraft/client/gui/components/toasts/ToastComponent$ToastInstance <init> (Lnet/minecraft/client/gui/components/toasts/ToastComponent;Lnet/minecraft/client/gui/components/toasts/Toast;II)V
-accessible field net/minecraft/client/gui/components/toasts/ToastComponent$ToastInstance visibility Lnet/minecraft/client/gui/components/toasts/Toast$Visibility;

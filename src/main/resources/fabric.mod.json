@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "${description}",
+  "authors": [
+    "Apollo"
+  ],
+  "contact": {
+    "homepage": "${url}",
+    "sources": "${sources}"
+  },
+  "license": "MIT",
+  "icon": "pack.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.worldgen.wikiful.impl.platform.fabric.WikifulFabric"
+    ],
+    "client": [
+      "dev.worldgen.wikiful.impl.platform.fabric.WikifulFabricClient"
+    ]
+  },
+  "mixins": [
+    "wikiful.mixins.json"
+  ],
+  "accessWidener": "wikiful.ct",
+  "depends": {
+    "fabricloader": ">=0.17",
+    "minecraft": "${minecraft}"
+  }
+}

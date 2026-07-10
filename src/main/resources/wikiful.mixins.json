@@ -1,0 +1,16 @@
+{
+  "minVersion": "0.8",
+  "package": "dev.worldgen.wikiful.mixin",
+  "mixins": [
+    "LootContextParamSetsAccessor",
+    "trigger.EnchantmentHelperMixin",
+    "trigger.InventoryChangeTriggerMixin",
+    "trigger.ItemStackMixin",
+    "trigger.ServerPlayerMixin"
+  ],
+  "client": [
+    "client.PauseScreenMixin",
+    "client.ToastInstanceMixin",
+    "client.ToastManagerMixin"
+  ]
+}
